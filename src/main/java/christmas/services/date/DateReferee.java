@@ -1,18 +1,26 @@
 package christmas.services.date;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+
 public class DateReferee {
+    private final static int year = 2023;
+    private final static int month = 12;
+
     public DateReferee() {
     }
 
-    public String checkOfWeek(int date) {
-        return "요일";
+    public String checkOfWeek(int day) {
+        LocalDate date = LocalDate.of(year, month, day);
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
+        return dayOfWeek.toString();
     }
 
-    public int checkWeekendOrWeekday(int date) {
-        return 0;
+    public String checkWeekendOrWeekday(int day) {
+        return "평일";
     }
 
-    public boolean isChristmas(int date) {
+    public boolean isChristmas(int day) {
         return true;
     }
 }
