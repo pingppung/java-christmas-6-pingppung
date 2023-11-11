@@ -21,30 +21,30 @@ public class DateRefereeTest {
     @DisplayName("특정 일자의 정확한 요일 확인")
     @Test
     void checkOfWeekForCorrectDay() {
-        int dayOfWeek = dateReferee.checkOfWeek(16);
-        assertThat(dayOfWeek).isEqualTo(DayOfWeek.SATURDAY.getValue());
+        DayOfWeek dayOfWeek = dateReferee.checkOfWeek(16);
+        assertThat(dayOfWeek).isEqualTo(DayOfWeek.SATURDAY);
     }
 
     @DisplayName("특정 일자의 틀린 요일 확인")
     @Test
     void checkOfWeekForIncorrectDay() {
-        int dayOfWeek = dateReferee.checkOfWeek(16);
-        assertThat(dayOfWeek).isNotEqualTo(DayOfWeek.MONDAY.getValue());
+        DayOfWeek dayOfWeek = dateReferee.checkOfWeek(16);
+        assertThat(dayOfWeek).isNotEqualTo(DayOfWeek.MONDAY);
     }
 
     @DisplayName("특정 일자의 평일(일, 월, 화, 수, 목) 확인")
     @Test
     void checkWeekday() {
-        int dayOfWeek = dateReferee.checkOfWeek(17);
-        String weekday = dateReferee.checkWeekendOrWeekday(dayOfWeek); //2023-12-17 일요일
+        DayOfWeek dayOfWeek = DayOfWeek.WEDNESDAY;
+        String weekday = dateReferee.checkWeekendOrWeekday(dayOfWeek);
         assertThat(weekday).isEqualTo("평일");
     }
 
     @DisplayName("특정 일자의 주말(금, 토) 확인")
     @Test
     void checkWeekend() {
-        int dayOfWeek = dateReferee.checkOfWeek(16);
-        String weekend = dateReferee.checkWeekendOrWeekday(dayOfWeek); //2023-12-16 토요일
+        DayOfWeek dayOfWeek = DayOfWeek.FRIDAY;
+        String weekend = dateReferee.checkWeekendOrWeekday(dayOfWeek);
         assertThat(weekend).isEqualTo("주말");
     }
 
