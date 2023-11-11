@@ -1,16 +1,15 @@
 package christmas;
 
-import christmas.services.date.DateReferee;
+import christmas.services.date.DateCalculator;
 import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        DateReferee dateReferee = new DateReferee();
-        List<Integer> days = List.of(25, 26);
-        List<Boolean> chkChristmas = days.stream()
-                .map(dateReferee::hasChristmasNotPassed)
+        DateCalculator dateCalculator = new DateCalculator();
+        List<Integer> days = List.of(5, 25, 30);
+        List<Integer> dday = days.stream()
+                .map(dateCalculator::countDday)
                 .toList();
-        System.out.println(chkChristmas);
-
+        System.out.println(dday);
     }
 }
