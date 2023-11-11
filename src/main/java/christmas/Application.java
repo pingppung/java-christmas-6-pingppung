@@ -1,16 +1,16 @@
 package christmas;
 
 import christmas.services.date.DateReferee;
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
         DateReferee dateReferee = new DateReferee();
-        int weekendDayOfWeek = dateReferee.checkOfWeek(8);
-        String isWeekend = dateReferee.checkWeekendOrWeekday(weekendDayOfWeek);
-        System.out.println(isWeekend);
+        List<Integer> days = List.of(25, 26);
+        List<Boolean> chkChristmas = days.stream()
+                .map(dateReferee::hasChristmasNotPassed)
+                .toList();
+        System.out.println(chkChristmas);
 
-        int weekdayDayOfWeek = dateReferee.checkOfWeek(25);
-        String isWeekday = dateReferee.checkWeekendOrWeekday(weekdayDayOfWeek);
-        System.out.println(isWeekday);
     }
 }
