@@ -35,7 +35,7 @@
 - **서비스 기능**
     - 방문할 날짜 정보 계산
         - ✅ 무슨 요일인지 확인 - `DateReferee#checkDayOfWeek`
-        - 평일 또는 주말인지 확인 - `DateReferee#checkWeekendOrWeekday`
+        - ✅ 평일 또는 주말인지 확인 - `DateReferee#checkWeekendOrWeekday`
         - 크리스마스 여부 확인 - `DateReferee#isChristmas`
             - 크리스마스가 아직 지나지 않았다면 디데이 계산 - `DateCalculator#countDday`
     - 할인받을 수 있는 혜택 **(12월 1일 ~ 12월 31일)**
