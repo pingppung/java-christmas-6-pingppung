@@ -1,20 +1,20 @@
 package christmas.domain.event;
 
 import christmas.services.date.DateReferee;
+import java.time.DayOfWeek;
 
 public class Judgement {
     private final DateReferee dateReferee;
 
     //날짜에 대한 이벤트 조건 판단
-    public Judgement(DateReferee dateReferee, int day) {
+    public Judgement(DateReferee dateReferee, int day, int dessert, int maindish) {
         this.dateReferee = dateReferee;
-        isEligibleForEvent(day);
+        isEligibleForEvent(day, dessert, maindish);
     }
 
-    public void isEligibleForEvent(int day) {
+    public void isEligibleForEvent(int day, int dessert, int mainDish) {
         hasChristmasDdayDiscount(day);
-//        hasWeekdayDiscount();
-//        hasWeekendDiscount();
+        hasWeekendOrWeekdayDiscount(dessert, mainDish);
 //        hasSpecialDiscount();
     }
 
@@ -34,11 +34,27 @@ public class Judgement {
         }
     }
 
-    private void hasWeekdayDiscount() {
+    private void hasWeekendOrWeekdayDiscount(int dessertCount, int maindishCount) {
+        DayOfWeek dayOfWeek = dateReferee.checkOfWeek();
+        String isWeekday = dateReferee.checkWeekendOrWeekday(dayOfWeek);
+        if (isWeekday.equals("평일")) {
+            applyWeekdayDiscount(dessertCount);
+        }
+        if (isWeekday.equals("주말")) {
+            applyWeekendDiscount(maindishCount);
+        }
     }
 
-    private void hasWeekendDiscount() {
+    private void applyWeekdayDiscount(int count) {
+        Event event = new WeekdayDiscount(count);
+        int discount = event.calculateDiscount();
+        System.out.println("평일 할인 적용! 할인 금액: " + discount);
+    }
 
+    private void applyWeekendDiscount(int count) {
+        Event event = new WeekendDiscount(count);
+        int discount = event.calculateDiscount();
+        System.out.println("주말 할인 적용! 할인 금액: " + discount);
     }
 
     public void hasSpecialDiscount() {
