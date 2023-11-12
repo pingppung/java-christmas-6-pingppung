@@ -38,17 +38,17 @@
         - ✅ 평일 또는 주말인지 확인 - `DateReferee#checkWeekendOrWeekday`
         - ✅ 크리스마스 여부 확인 - `DateReferee#hasChristmasNotPassed`
             - ✅ 크리스마스 디데이 계산 - `DateCalculator#countDday`
-    - 할인받을 수 있는 혜택 **(12월 1일 ~ 12월 31일)**
+    - 할인받을 수 있는 혜택 **(12월 1일 ~ 12월 31일)** - `Event#Judgement`
         - 총 주문 금액이 10,000원 이상부터 적용
-        - 크리스마스 디데이 할인
+        - 크리스마스 디데이 할인 - `Event#ChristmasDdayDiscount`
             - `(12월 1일 ~ 12월 25일)` : 12월 1일부터 1,000원 할인으로 시작하여 날마다 + 100원 할인 혜택
-        - 평일 할인
+        - 평일 할인 - `Event#WeekdayDiscount`
             - `(일, 월, 화, 수, 목)` : 디저트 메뉴 1개당 2,023원 할인
-        - 주말 할인
+        - 주말 할인 - `Event#WeekendDiscount`
             - `(금, 토)` : 메인 메뉴 1개당 2,023원 할인
-        - 특별 할인
+        - 특별 할인 - `Event#SpecialDiscount`
             - `(일, 크리스마스 당일)` : 이벤트 달력에 별이 있으면 총 주문 금액에서 1,000원 할인
-        - 증정품
+        - 증정품 - `Event#GiftPromotion`
             - 할인 전 총 주문 금액이 12만원 이상일때, 샴페인 1개 증정
     - 주문 및 결제 처리
         - 총 주문 금액 계산
