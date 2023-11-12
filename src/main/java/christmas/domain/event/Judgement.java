@@ -4,18 +4,20 @@ import christmas.services.date.DateReferee;
 import java.time.DayOfWeek;
 
 public class Judgement {
+    private static final int FREE_CHAMPAGNE_THRESHOLD = 120_000;
     private final DateReferee dateReferee;
 
     //날짜에 대한 이벤트 조건 판단
-    public Judgement(DateReferee dateReferee, int day, int dessert, int maindish) {
+    public Judgement(DateReferee dateReferee, int day, int dessert, int maindish, int total) {
         this.dateReferee = dateReferee;
-        isEligibleForEvent(day, dessert, maindish);
+        isEligibleForEvent(day, dessert, maindish, total);
     }
 
-    public void isEligibleForEvent(int day, int dessert, int mainDish) {
+    public void isEligibleForEvent(int day, int dessert, int mainDish, int total) {
         hasChristmasDdayDiscount(day);
         hasWeekendOrWeekdayDiscount(dessert, mainDish);
         hasSpecialDiscount();
+        hasGiftPromotion(total);
     }
 
     private void hasChristmasDdayDiscount(int day) {
@@ -66,5 +68,13 @@ public class Judgement {
 
     private boolean checkStarInEventCalendar() {
         return dateReferee.checkOfWeek() == DayOfWeek.SUNDAY || dateReferee.isChristmas();
+    }
+
+    public void hasGiftPromotion(int totalAmount) {
+        if (totalAmount >= FREE_CHAMPAGNE_THRESHOLD) {
+            Event event = new GiftPromotion();
+            int discount = event.calculateDiscount();
+            System.out.println("샴페인 증정 적용! 할인 금액: " + discount);
+        }
     }
 }

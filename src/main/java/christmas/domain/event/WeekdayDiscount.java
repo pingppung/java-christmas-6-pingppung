@@ -3,7 +3,7 @@ package christmas.domain.event;
 import christmas.enums.EventType;
 
 public class WeekdayDiscount extends Event {
-    private static final int DISCOUNT_AMOUNT = 2023;
+    private static final int DISCOUNT_AMOUNT = 2_023;
     private final int dessertCount;
 
     public WeekdayDiscount(int count) {

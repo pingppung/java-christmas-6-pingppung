@@ -3,7 +3,7 @@ package christmas.domain.event;
 import christmas.enums.EventType;
 
 public class SpecialDiscount extends Event {
-    private static final int DISCOUNT_AMOUNT = 1000;
+    private static final int DISCOUNT_AMOUNT = 1_000;
 
     public SpecialDiscount() {
         super(EventType.SPECIAL_DISCOUNT);
