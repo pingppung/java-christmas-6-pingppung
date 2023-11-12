@@ -14,7 +14,7 @@ public class DateCalculatorTest {
 
     @BeforeEach
     void setUp() {
-        dateCalculator = new DateCalculator();
+        dateCalculator = DateCalculator.create();
         christmasDate = LocalDate.of(2023, 12, 25);
     }
 

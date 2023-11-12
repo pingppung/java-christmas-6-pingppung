@@ -6,14 +6,15 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class DateReferee {
+    private final LocalDate reservationDate;
 
-    public DateReferee() {
+    private DateReferee(int day) {
+        LocalDate christmasDate = CHRISTMAS_DAY.getDate();
+        reservationDate = LocalDate.of(christmasDate.getYear(), christmasDate.getMonthValue(), day);
     }
 
-    public DayOfWeek checkOfWeek(int day) {
-        LocalDate christmasDate = CHRISTMAS_DAY.getDate();
-        LocalDate date = LocalDate.of(christmasDate.getYear(), christmasDate.getMonthValue(), day);
-        return date.getDayOfWeek();
+    public static DateReferee create(int day) {
+        return new DateReferee(day);
     }
 
     public String checkWeekendOrWeekday(DayOfWeek dayOfWeek) {
@@ -23,8 +24,12 @@ public class DateReferee {
         return "평일";
     }
 
-    public boolean hasChristmasNotPassed(int day) {
-        return day <= CHRISTMAS_DAY.getDate().getDayOfMonth();
+    public DayOfWeek checkOfWeek() {
+        return reservationDate.getDayOfWeek();
+    }
+
+    public boolean hasChristmasNotPassed() {
+        return reservationDate.getDayOfMonth() <= CHRISTMAS_DAY.getDate().getDayOfMonth();
     }
 
     private boolean isWeekend(DayOfWeek dayOfWeek) {

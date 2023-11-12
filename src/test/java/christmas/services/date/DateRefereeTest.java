@@ -15,20 +15,20 @@ public class DateRefereeTest {
 
     @BeforeEach
     void setUp() {
-        dateReferee = new DateReferee();
+        dateReferee = DateReferee.create(1);
     }
 
     @DisplayName("특정 일자의 정확한 요일 확인")
     @Test
     void checkOfWeekForCorrectDay() {
-        DayOfWeek dayOfWeek = dateReferee.checkOfWeek(16);
-        assertThat(dayOfWeek).isEqualTo(DayOfWeek.SATURDAY);
+        DayOfWeek dayOfWeek = dateReferee.checkOfWeek();
+        assertThat(dayOfWeek).isEqualTo(DayOfWeek.FRIDAY);
     }
 
     @DisplayName("특정 일자의 틀린 요일 확인")
     @Test
     void checkOfWeekForIncorrectDay() {
-        DayOfWeek dayOfWeek = dateReferee.checkOfWeek(16);
+        DayOfWeek dayOfWeek = dateReferee.checkOfWeek();
         assertThat(dayOfWeek).isNotEqualTo(DayOfWeek.MONDAY);
     }
 
@@ -51,12 +51,14 @@ public class DateRefereeTest {
     @DisplayName("크리스마스 경계값-25일 입력")
     @Test
     void hasChristmasNotPassedFor25() {
-        assertTrue(dateReferee.hasChristmasNotPassed(25));
+        DateReferee christmas = DateReferee.create(25);
+        assertTrue(christmas.hasChristmasNotPassed());
     }
 
     @DisplayName("크리스마스 경계값-26일 입력")
     @Test
     void hasChristmasPassedFor26() {
-        assertFalse(dateReferee.hasChristmasNotPassed(26));
+        DateReferee afterChristmas = DateReferee.create(26);
+        assertFalse(afterChristmas.hasChristmasNotPassed());
     }
 }

@@ -8,8 +8,12 @@ import java.time.temporal.ChronoUnit;
 public class DateCalculator {
     private final LocalDate christmasDate;
 
-    public DateCalculator() {
+    private DateCalculator() {
         christmasDate = CHRISTMAS_DAY.getDate();
+    }
+
+    public static DateCalculator create() {
+        return new DateCalculator();
     }
 
     public int countDday(int day) {
