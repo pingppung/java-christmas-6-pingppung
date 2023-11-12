@@ -1,6 +1,7 @@
 package christmas.services.date;
 
-import christmas.enums.ChristmasDate;
+import static christmas.enums.ChristmasDate.CHRISTMAS_DAY;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
@@ -10,7 +11,8 @@ public class DateReferee {
     }
 
     public DayOfWeek checkOfWeek(int day) {
-        LocalDate date = LocalDate.of(ChristmasDate.YEAR.getValue(), ChristmasDate.MONTH.getValue(), day);
+        LocalDate christmasDate = CHRISTMAS_DAY.getDate();
+        LocalDate date = LocalDate.of(christmasDate.getYear(), christmasDate.getMonthValue(), day);
         return date.getDayOfWeek();
     }
 
@@ -22,7 +24,7 @@ public class DateReferee {
     }
 
     public boolean hasChristmasNotPassed(int day) {
-        return day <= ChristmasDate.DAY.getValue();
+        return day <= CHRISTMAS_DAY.getDate().getDayOfMonth();
     }
 
     private boolean isWeekend(DayOfWeek dayOfWeek) {

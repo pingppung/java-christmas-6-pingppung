@@ -1,18 +1,17 @@
 package christmas.enums;
 
+import java.time.LocalDate;
+
 public enum ChristmasDate {
-    YEAR(2023),
-    MONTH(12),
-    DAY(25);
-    private final int value;
+    CHRISTMAS_DAY(LocalDate.of(2023, 12, 25));
 
-    ChristmasDate(int value) {
-        this.value = value;
+    private final LocalDate date;
+
+    ChristmasDate(LocalDate date) {
+        this.date = date;
     }
 
-    public int getValue() {
-        return value;
+    public LocalDate getDate() {
+        return date;
     }
-
-
 }

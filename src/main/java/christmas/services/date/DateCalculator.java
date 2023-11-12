@@ -1,6 +1,7 @@
 package christmas.services.date;
 
-import christmas.enums.ChristmasDate;
+import static christmas.enums.ChristmasDate.CHRISTMAS_DAY;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -8,12 +9,11 @@ public class DateCalculator {
     private final LocalDate christmasDate;
 
     public DateCalculator() {
-        christmasDate = LocalDate.of(ChristmasDate.YEAR.getValue(), ChristmasDate.MONTH.getValue(),
-                ChristmasDate.DAY.getValue());
+        christmasDate = CHRISTMAS_DAY.getDate();
     }
 
     public int countDday(int day) {
-        LocalDate date = LocalDate.of(ChristmasDate.YEAR.getValue(), ChristmasDate.MONTH.getValue(), day);
+        LocalDate date = LocalDate.of(christmasDate.getYear(), christmasDate.getMonthValue(), day);
         long dday = ChronoUnit.DAYS.between(date, christmasDate);
         return (int) dday;
     }
