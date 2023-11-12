@@ -40,7 +40,7 @@
             - ✅ 크리스마스 디데이 계산 - `DateCalculator#countDday`
     - 할인받을 수 있는 혜택 **(12월 1일 ~ 12월 31일)** - `Event#Judgement`
         - 총 주문 금액이 10,000원 이상부터 적용
-        - 크리스마스 디데이 할인 - `Event#ChristmasDdayDiscount`
+        - ✅ 크리스마스 디데이 할인 - `Event#ChristmasDdayDiscount`
             - `(12월 1일 ~ 12월 25일)` : 12월 1일부터 1,000원 할인으로 시작하여 날마다 + 100원 할인 혜택
         - 평일 할인 - `Event#WeekdayDiscount`
             - `(일, 월, 화, 수, 목)` : 디저트 메뉴 1개당 2,023원 할인

@@ -17,8 +17,8 @@ public class DateCalculator {
     }
 
     public int countDday(int day) {
-        LocalDate date = LocalDate.of(christmasDate.getYear(), christmasDate.getMonthValue(), day);
-        long dday = ChronoUnit.DAYS.between(date, christmasDate);
+        LocalDate reservationDate = LocalDate.of(christmasDate.getYear(), christmasDate.getMonthValue(), day);
+        long dday = ChronoUnit.DAYS.between(reservationDate, christmasDate);
         return (int) dday;
     }
 }
