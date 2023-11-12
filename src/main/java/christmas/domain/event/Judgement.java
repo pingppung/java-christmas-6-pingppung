@@ -34,13 +34,13 @@ public class Judgement {
         }
     }
 
-    private void hasWeekendOrWeekdayDiscount(int dessertCount, int maindishCount) {
+    protected void hasWeekendOrWeekdayDiscount(int dessertCount, int maindishCount) {
         DayOfWeek dayOfWeek = dateReferee.checkOfWeek();
-        String isWeekday = dateReferee.checkWeekendOrWeekday(dayOfWeek);
-        if (isWeekday.equals("평일")) {
+        String isWeekdayOrWeekend = dateReferee.checkWeekendOrWeekday(dayOfWeek);
+        if (isWeekdayOrWeekend.equals("평일")) {
             applyWeekdayDiscount(dessertCount);
         }
-        if (isWeekday.equals("주말")) {
+        if (isWeekdayOrWeekend.equals("주말")) {
             applyWeekendDiscount(maindishCount);
         }
     }
