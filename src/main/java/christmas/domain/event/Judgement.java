@@ -8,9 +8,8 @@ public class Judgement {
     private final DateReferee dateReferee;
 
     //날짜에 대한 이벤트 조건 판단
-    public Judgement(DateReferee dateReferee, int day, int dessert, int maindish, int total) {
+    public Judgement(DateReferee dateReferee) {
         this.dateReferee = dateReferee;
-        isEligibleForEvent(day, dessert, maindish, total);
     }
 
     public void isEligibleForEvent(int day, int dessert, int mainDish, int total) {
@@ -20,7 +19,7 @@ public class Judgement {
         hasGiftPromotion(total);
     }
 
-    private void hasChristmasDdayDiscount(int day) {
+    protected void hasChristmasDdayDiscount(int day) {
         if (dateReferee.hasChristmasNotPassed()) {
             //1. 디데이 날짜 구해서 하는 방법
 //            DateCalculator dateCalculator = DateCalculator.create();
