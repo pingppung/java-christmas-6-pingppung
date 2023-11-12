@@ -65,7 +65,7 @@ public class Judgement {
         }
     }
 
-    private boolean checkStarInEventCalendar() {
+    protected boolean checkStarInEventCalendar() {
         return dateReferee.checkOfWeek() == DayOfWeek.SUNDAY || dateReferee.isChristmas();
     }
 
