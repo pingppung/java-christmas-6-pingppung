@@ -19,7 +19,7 @@ public class Judgement {
         hasGiftPromotion(total);
     }
 
-    protected void hasChristmasDdayDiscount(int day) {
+    protected int hasChristmasDdayDiscount(int day) {
         if (dateReferee.hasChristmasNotPassed()) {
             //1. 디데이 날짜 구해서 하는 방법
 //            DateCalculator dateCalculator = DateCalculator.create();
@@ -31,7 +31,9 @@ public class Judgement {
             Event event = new ChristmasDdayDiscount(day);
             int discount = event.calculateDiscount();
             System.out.println("크리스마스 D-day 할인 이벤트 적용! 할인 금액: " + discount);
+            return discount;
         }
+        return 0;
     }
 
     protected void hasWeekendOrWeekdayDiscount(int dessertCount, int maindishCount) {
@@ -45,35 +47,46 @@ public class Judgement {
         }
     }
 
-    private void applyWeekdayDiscount(int count) {
+    private int applyWeekdayDiscount(int count) {
         Event event = new WeekdayDiscount(count);
         int discount = event.calculateDiscount();
         System.out.println("평일 할인 적용! 할인 금액: " + discount);
+        return discount;
     }
 
-    private void applyWeekendDiscount(int count) {
+    private int applyWeekendDiscount(int count) {
         Event event = new WeekendDiscount(count);
         int discount = event.calculateDiscount();
         System.out.println("주말 할인 적용! 할인 금액: " + discount);
+        return discount;
     }
 
-    public void hasSpecialDiscount() {
+    public int hasSpecialDiscount() {
         if (checkStarInEventCalendar()) {
             Event event = new SpecialDiscount();
             int discount = event.calculateDiscount();
             System.out.println("특별 할인 적용! 할인 금액: " + discount);
+            return discount;
         }
+        return 0;
     }
 
     protected boolean checkStarInEventCalendar() {
         return dateReferee.checkOfWeek() == DayOfWeek.SUNDAY || dateReferee.isChristmas();
     }
 
-    public void hasGiftPromotion(int totalAmount) {
-        if (totalAmount >= FREE_CHAMPAGNE_THRESHOLD) {
+    protected int hasGiftPromotion(int totalAmount) {
+        if (checkTotalAmount(totalAmount)) {
             Event event = new GiftPromotion();
             int discount = event.calculateDiscount();
             System.out.println("샴페인 증정 적용! 할인 금액: " + discount);
+            return discount;
         }
+        return 0;
+    }
+
+    protected boolean checkTotalAmount(int totalAmount) {
+        System.out.println(totalAmount);
+        return totalAmount >= FREE_CHAMPAGNE_THRESHOLD;
     }
 }

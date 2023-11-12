@@ -13,8 +13,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class JudgementTest {
-    DateReferee dateReferee;
-    Judgement judgement;
+    private static final int FREE_CHAMPAGNE_THRESHOLD = 120_000;
+    private static final int CHAMPAGNE_PRICE = 25_000;
+    private DateReferee dateReferee;
+    private Judgement judgement;
+
 
     @BeforeEach
     void setUp() {
@@ -89,6 +92,37 @@ public class JudgementTest {
         Event event = new WeekendDiscount(4);
         int expectedDiscount = 4 * 2_023;
         assertThat(event.calculateDiscount()).isEqualTo(expectedDiscount);
+    }
+
+    @DisplayName("샴페인 증정이 적용되는지 확인 - 총 주문 금액이 기준 이상인 경우")
+    @Test
+    void giftPromotionApplied() {
+        int totalAmount = FREE_CHAMPAGNE_THRESHOLD + 1;
+        boolean hasGiftPromotion = judgement.checkTotalAmount(totalAmount);
+        assertTrue(hasGiftPromotion);
+    }
+
+    @DisplayName("샴페인 증정이 적용되지 않는지 확인 - 총 주문 금액이 기준 미만인 경우")
+    @Test
+    void giftPromotionNotApplied() {
+        int totalAmount = FREE_CHAMPAGNE_THRESHOLD - 1;
+        boolean hasGiftPromotion = judgement.checkTotalAmount(totalAmount);
+        assertFalse(hasGiftPromotion);
+    }
+
+    @DisplayName("샴페인 증정이 적용되는지 확인 - 총 주문 금액이 기준과 같은 경우")
+    @Test
+    void giftPromotionAppliedOnThreshold() {
+        int totalAmount = FREE_CHAMPAGNE_THRESHOLD;
+        boolean hasGiftPromotion = judgement.checkTotalAmount(totalAmount);
+        assertTrue(hasGiftPromotion);
+    }
+
+    @DisplayName("증정 이벤트 적용될 때 할인 금액 샴페인값 포함되는지 확인")
+    @Test
+    void calculateDiscountWithGiftPromotion() {
+        int totalAmount = FREE_CHAMPAGNE_THRESHOLD;
+        assertThat(judgement.hasGiftPromotion(totalAmount)).isEqualTo(CHAMPAGNE_PRICE);
     }
 
     private Judgement createTestDateReferee() {
