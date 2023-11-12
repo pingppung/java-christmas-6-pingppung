@@ -15,7 +15,7 @@ public class Judgement {
     public void isEligibleForEvent(int day, int dessert, int mainDish) {
         hasChristmasDdayDiscount(day);
         hasWeekendOrWeekdayDiscount(dessert, mainDish);
-//        hasSpecialDiscount();
+        hasSpecialDiscount();
     }
 
     private void hasChristmasDdayDiscount(int day) {
@@ -29,8 +29,7 @@ public class Judgement {
             //2. 그냥 입력 날짜 보내는 방법
             Event event = new ChristmasDdayDiscount(day);
             int discount = event.calculateDiscount();
-            System.out.println("크리스마스 D-day 할인 이벤트 적용!");
-            System.out.println(discount);
+            System.out.println("크리스마스 D-day 할인 이벤트 적용! 할인 금액: " + discount);
         }
     }
 
@@ -58,6 +57,14 @@ public class Judgement {
     }
 
     public void hasSpecialDiscount() {
+        if (checkStarInEventCalendar()) {
+            Event event = new SpecialDiscount();
+            int discount = event.calculateDiscount();
+            System.out.println("특별 할인 적용! 할인 금액: " + discount);
+        }
+    }
 
+    private boolean checkStarInEventCalendar() {
+        return dateReferee.checkOfWeek() == DayOfWeek.SUNDAY || dateReferee.isChristmas();
     }
 }

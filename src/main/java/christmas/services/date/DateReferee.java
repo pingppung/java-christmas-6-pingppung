@@ -7,9 +7,9 @@ import java.time.LocalDate;
 
 public class DateReferee {
     private final LocalDate reservationDate;
+    private final LocalDate christmasDate = CHRISTMAS_DAY.getDate();
 
     private DateReferee(int day) {
-        LocalDate christmasDate = CHRISTMAS_DAY.getDate();
         reservationDate = LocalDate.of(christmasDate.getYear(), christmasDate.getMonthValue(), day);
     }
 
@@ -30,6 +30,10 @@ public class DateReferee {
 
     public boolean hasChristmasNotPassed() {
         return reservationDate.getDayOfMonth() <= CHRISTMAS_DAY.getDate().getDayOfMonth();
+    }
+
+    public boolean isChristmas() {
+        return reservationDate.equals(christmasDate);
     }
 
     private boolean isWeekend(DayOfWeek dayOfWeek) {

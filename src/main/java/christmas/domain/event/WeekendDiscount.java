@@ -3,6 +3,8 @@ package christmas.domain.event;
 import christmas.enums.EventType;
 
 public class WeekendDiscount extends Event {
+
+    private static final int DISCOUNT_AMOUNT = 2023;
     private final int mainDishCount;
 
     public WeekendDiscount(int count) {
@@ -12,7 +14,6 @@ public class WeekendDiscount extends Event {
 
     @Override
     public int calculateDiscount() {
-        int discountAmount = 2023;
-        return discountAmount * mainDishCount;
+        return DISCOUNT_AMOUNT * mainDishCount;
     }
 }
