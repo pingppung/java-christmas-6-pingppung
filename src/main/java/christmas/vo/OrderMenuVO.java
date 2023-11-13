@@ -1,13 +1,6 @@
 package christmas.vo;
 
-public class OrderMenuVO {
-    private final String menuName;
-    private final int quantity;
-
-    public OrderMenuVO(String menuName, int quantity) {
-        this.menuName = menuName;
-        this.quantity = quantity;
-    }
+public record OrderMenuVO(String menuName, int quantity) {
 
     @Override
     public String toString() {

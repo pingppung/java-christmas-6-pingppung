@@ -17,8 +17,8 @@
             - ✅ 주문한 메뉴 중 음료만 주문한 경우 - `InputValidator#validateDrinkOnlyOrder`
             - ✅ 주문 메뉴가 하나도 없는 경우 - `InputValidator#validateMenuQuantity`
         - [ERROR] "주문은 최대 20개까지 가능합니다. 다시 입력해 주세요."
-            - 한 번에 최대 20개까지만 주문 가능한 경우
-    - [ERROR]가 포함된 메시지 출력 후, 예외처리되는 부분부터 입력 다시 받음
+            - ✅ 한 번에 최대 20개까지만 주문 가능한 경우 - `InputValidator#validateMaxOrderQuantity`
+    - ✅ [ERROR]가 포함된 메시지 출력 후, 예외처리되는 부분부터 입력 다시 받음 - `InputHandler#retryInputOnInvalid`
 
 - **출력 기능**
     - "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.”

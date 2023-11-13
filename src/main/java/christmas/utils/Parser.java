@@ -9,18 +9,28 @@ public class Parser {
     private static final String MENU_ITEM_SEPARATOR = "-";
     private final List<OrderMenuVO> orderDetails;
 
-    public Parser() {
-        orderDetails = new ArrayList<>();
+    private final InputValidator inputValidator;
+
+    public Parser(InputValidator inputValidator) {
+        this.orderDetails = new ArrayList<>();
+        this.inputValidator = inputValidator;
     }
 
-    public void parseOrder(String input) {
+    public List<OrderMenuVO> parserOrder(String input) {
         String[] menus = input.split(FOOD_SEPARATOR);
         for (String menu : menus) {
             String[] parts = menu.split(MENU_ITEM_SEPARATOR);
             String menuName = parts[0];
-            int quantity = Integer.parseInt(parts[1]);
+            int quantity = convertToInt(parts[1]);
             OrderMenuVO orderMenu = new OrderMenuVO(menuName, quantity);
             orderDetails.add(orderMenu);
         }
+        return orderDetails;
     }
+
+    //메뉴에 대한 개수에 대해서 예외처리
+    private Integer convertToInt(String number) {
+        return inputValidator.validateQuantityNonNumeric(number);
+    }
+
 }
