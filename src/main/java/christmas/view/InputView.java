@@ -5,14 +5,14 @@ import christmas.enums.ConstantsMessage;
 
 public class InputView {
     public String getVisitDate() {
-        return readLineWithPrompt(ConstantsMessage.INPUT_VISIT_DATE);
+        return inputValue(ConstantsMessage.INPUT_VISIT_DATE);
     }
 
     public String getOrderMenu() {
-        return readLineWithPrompt(ConstantsMessage.INPUT_ORDER_MENU);
+        return inputValue(ConstantsMessage.INPUT_ORDER_MENU);
     }
 
-    private String readLineWithPrompt(ConstantsMessage prompt) {
+    private String inputValue(ConstantsMessage prompt) {
         System.out.println(prompt.getMessage());
         return Console.readLine();
     }
