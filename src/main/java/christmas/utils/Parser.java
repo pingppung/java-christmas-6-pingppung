@@ -8,7 +8,6 @@ public class Parser {
     private static final String FOOD_SEPARATOR = ",";
     private static final String MENU_ITEM_SEPARATOR = "-";
     private final List<OrderMenuVO> orderDetails;
-
     private final OrderValidator orderValidator;
 
     public Parser(OrderValidator orderValidator) {
@@ -28,9 +27,17 @@ public class Parser {
         return orderDetails;
     }
 
-    //메뉴에 대한 개수에 대해서 예외처리
     private Integer convertToInt(String number) {
         return orderValidator.validateQuantityNonNumeric(number);
+    }
+
+    public void validateOrderDetails() {
+        orderValidator.validateMenuExistence(orderDetails);
+        orderValidator.validateMenuQuantity(orderDetails);
+        orderValidator.validateDuplicateMenu(orderDetails);
+        orderValidator.validateDrinkOnlyOrder(orderDetails);
+        orderValidator.validateNonZeroOrderQuantity(orderDetails);
+        orderValidator.validateMaxOrderQuantity(orderDetails);
     }
 
 }

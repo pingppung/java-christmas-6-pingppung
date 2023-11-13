@@ -10,8 +10,9 @@ public class OrderValidator {
     private static final int ZERO_ORDER_QUANTITY = 0;
     private static final int MIN_ORDER_QUANTITY = 1;
     private static final int MAX_ORDER_TOTAL_QUANTITY = 20;
-    private static final String Pattern = "^[가-힣]+-[0-9]+$";
-    private static final String UNKNOWN_CATEGORY = "NONE";
+    private static final String PATTERN = "^[가-힣]+-[0-9]+$";
+    private static final String NONE_CATEGORY = "NONE";
+    private static final String BEVERAGE_CATEGORY = "Beverage";
     private static final String INVALID_ORDER_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
     private static final String ORDER_LIMIT_EXCEEDED_MESSAGE = "[ERROR] 주문은 최대 20개까지 가능합니다. 다시 입력해 주세요.";
 
@@ -21,15 +22,21 @@ public class OrderValidator {
         menu = new Menu();
     }
 
-    public void validateMenuExistence(String food) {
-        if (menu.getMenuCategory(food).equals(UNKNOWN_CATEGORY)) {
-            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+    public void validateMenuExistence(List<OrderMenuVO> orderMenuList) {
+        for (OrderMenuVO orderMenu : orderMenuList) {
+            String food = orderMenu.menuName();
+            if (menu.getMenuCategory(food).equals(NONE_CATEGORY)) {
+                throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+            }
         }
     }
 
-    public void validateMenuQuantity(int quantity) {
-        if (quantity > MIN_ORDER_QUANTITY) {
-            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+    public void validateMenuQuantity(List<OrderMenuVO> orderMenuList) {
+        for (OrderMenuVO orderMenu : orderMenuList) {
+            int quantity = orderMenu.quantity();
+            if (quantity > MIN_ORDER_QUANTITY) {
+                throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+            }
         }
     }
 
@@ -42,7 +49,7 @@ public class OrderValidator {
     }
 
     public void validateMenuFormat(String food) {
-        if (!food.matches(Pattern)) {
+        if (!food.matches(PATTERN)) {
             throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }
@@ -67,11 +74,11 @@ public class OrderValidator {
     }
 
     private boolean isBeverage(String food) {
-        return menu.getMenuCategory(food).equals("Beverage");
+        return menu.getMenuCategory(food).equals(BEVERAGE_CATEGORY);
     }
 
 
-    public void validateMenuQuantity(List<OrderMenuVO> orderedMenu) {
+    public void validateNonZeroOrderQuantity(List<OrderMenuVO> orderedMenu) {
         if (orderedMenu.size() == ZERO_ORDER_QUANTITY) {
             throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
