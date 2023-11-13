@@ -1,92 +1,87 @@
 package christmas.domain.event;
 
+import christmas.domain.event.items.ChristmasDdayDiscount;
+import christmas.domain.event.items.Event;
+import christmas.domain.event.items.GiftPromotion;
+import christmas.domain.event.items.SpecialDiscount;
+import christmas.domain.event.items.WeekdayDiscount;
+import christmas.domain.event.items.WeekendDiscount;
+import christmas.enums.EventType;
+import christmas.services.date.DateCalculator;
 import christmas.services.date.DateReferee;
 import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Judgement {
     private static final int FREE_CHAMPAGNE_THRESHOLD = 120_000;
+    private static final String WEEKDAY = "평일";
+    private static final String WEEKEND = "주말";
     private final DateReferee dateReferee;
+    private final List<EligibleEvent> eligibleEvents;
+
 
     //날짜에 대한 이벤트 조건 판단
     public Judgement(DateReferee dateReferee) {
         this.dateReferee = dateReferee;
+        this.eligibleEvents = new ArrayList<>();
     }
 
-    public void isEligibleForEvent(int day, int dessert, int mainDish, int total) {
-        hasChristmasDdayDiscount(day);
-        hasWeekendOrWeekdayDiscount(dessert, mainDish);
-        hasSpecialDiscount();
-        hasGiftPromotion(total);
+    public void processEligibilityEvents(int day, int dessert, int mainDish, int total) {
+        eligibleEvents.clear();
+        addChristmasDdayDiscount(day);
+        addWeekendOrWeekdayDiscount(dessert, mainDish);
+        addSpecialDiscount();
+        addGiftPromotion(total);
     }
 
-    protected int hasChristmasDdayDiscount(int day) {
+    protected void addChristmasDdayDiscount(int day) {
         if (dateReferee.hasChristmasNotPassed()) {
-            //1. 디데이 날짜 구해서 하는 방법
-//            DateCalculator dateCalculator = DateCalculator.create();
-//            int dday = dateCalculator.countDday(day);
-//            System.out.println("크리스마스 D-day 할인 이벤트 적용! D-day: " + dday);
-//            Event event = new ChristmasDdayDiscount(dday);
-
-            //2. 그냥 입력 날짜 보내는 방법
-            Event event = new ChristmasDdayDiscount(day);
-            int discount = event.calculateDiscount();
-            System.out.println("크리스마스 D-day 할인 이벤트 적용! 할인 금액: " + discount);
-            return discount;
+            DateCalculator dateCalculator = DateCalculator.create();
+            int dday = dateCalculator.countDday(day);
+            Event event = new ChristmasDdayDiscount(dday);
+            addEventToEligibleList(EventType.CHRISTMAS_DDAY_DISCOUNT, event);
         }
-        return 0;
     }
 
-    protected void hasWeekendOrWeekdayDiscount(int dessertCount, int maindishCount) {
+    protected void addWeekendOrWeekdayDiscount(int dessertCount, int maindishCount) {
         DayOfWeek dayOfWeek = dateReferee.checkOfWeek();
         String isWeekdayOrWeekend = dateReferee.checkWeekendOrWeekday(dayOfWeek);
-        if (isWeekdayOrWeekend.equals("평일")) {
-            applyWeekdayDiscount(dessertCount);
+        if (isWeekdayOrWeekend.equals(WEEKDAY)) {
+            applyDiscount(new WeekdayDiscount(dessertCount));
         }
-        if (isWeekdayOrWeekend.equals("주말")) {
-            applyWeekendDiscount(maindishCount);
+        if (isWeekdayOrWeekend.equals(WEEKEND)) {
+            applyDiscount(new WeekendDiscount(maindishCount));
         }
     }
 
-    private int applyWeekdayDiscount(int count) {
-        Event event = new WeekdayDiscount(count);
-        int discount = event.calculateDiscount();
-        System.out.println("평일 할인 적용! 할인 금액: " + discount);
-        return discount;
+    private void applyDiscount(Event event) {
+        addEventToEligibleList(event.getEventType(), event);
     }
 
-    private int applyWeekendDiscount(int count) {
-        Event event = new WeekendDiscount(count);
-        int discount = event.calculateDiscount();
-        System.out.println("주말 할인 적용! 할인 금액: " + discount);
-        return discount;
-    }
-
-    public int hasSpecialDiscount() {
+    public void addSpecialDiscount() {
         if (checkStarInEventCalendar()) {
             Event event = new SpecialDiscount();
-            int discount = event.calculateDiscount();
-            System.out.println("특별 할인 적용! 할인 금액: " + discount);
-            return discount;
+            addEventToEligibleList(EventType.SPECIAL_DISCOUNT, event);
         }
-        return 0;
     }
 
     protected boolean checkStarInEventCalendar() {
         return dateReferee.checkOfWeek() == DayOfWeek.SUNDAY || dateReferee.isChristmas();
     }
 
-    protected int hasGiftPromotion(int totalAmount) {
+    protected void addGiftPromotion(int totalAmount) {
         if (checkTotalAmount(totalAmount)) {
             Event event = new GiftPromotion();
-            int discount = event.calculateDiscount();
-            System.out.println("샴페인 증정 적용! 할인 금액: " + discount);
-            return discount;
+            addEventToEligibleList(EventType.GIFT_PROMOTION, event);
         }
-        return 0;
     }
 
     protected boolean checkTotalAmount(int totalAmount) {
-        System.out.println(totalAmount);
         return totalAmount >= FREE_CHAMPAGNE_THRESHOLD;
+    }
+
+    private void addEventToEligibleList(EventType eventType, Event event) {
+        eligibleEvents.add(new EligibleEvent(eventType, event.calculateDiscount()));
     }
 }

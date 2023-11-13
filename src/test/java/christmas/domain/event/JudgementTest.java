@@ -6,6 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import christmas.domain.event.items.ChristmasDdayDiscount;
+import christmas.domain.event.items.Event;
+import christmas.domain.event.items.GiftPromotion;
+import christmas.domain.event.items.WeekdayDiscount;
+import christmas.domain.event.items.WeekendDiscount;
 import christmas.services.date.DateReferee;
 import java.time.DayOfWeek;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +44,6 @@ public class JudgementTest {
     void specialDiscountAppliedOnChristmas() {
         when(dateReferee.checkOfWeek()).thenReturn(DayOfWeek.MONDAY); // 아무 요일이나 크리스마스가 아닌 경우로 가정
         when(dateReferee.isChristmas()).thenReturn(true);
-        Judgement judgement = new Judgement(dateReferee);
         boolean hasSpecialDiscount = judgement.checkStarInEventCalendar();
         assertTrue(hasSpecialDiscount);
     }
@@ -58,7 +62,8 @@ public class JudgementTest {
     @Test
     void onChristmasDdayDiscount() {
         when(dateReferee.hasChristmasNotPassed()).thenReturn(true);
-        Event event = new ChristmasDdayDiscount(25);
+        int dday = 0;
+        Event event = new ChristmasDdayDiscount(dday);
         int expectedDiscount = 3_400;
         assertThat(event.calculateDiscount()).isEqualTo(expectedDiscount);
     }
@@ -67,7 +72,8 @@ public class JudgementTest {
     @Test
     void beforeChristmasDdayDiscount() {
         when(dateReferee.hasChristmasNotPassed()).thenReturn(true);
-        Event event = new ChristmasDdayDiscount(10);
+        int dday = 15;
+        Event event = new ChristmasDdayDiscount(dday);
         int expectedDiscount = 1_900;
         assertThat(event.calculateDiscount()).isEqualTo(expectedDiscount);
     }
@@ -77,7 +83,7 @@ public class JudgementTest {
     void weekdayDiscount() {
         when(dateReferee.checkOfWeek()).thenReturn(DayOfWeek.WEDNESDAY);
         Judgement weekDayJudgement = createTestDateReferee();
-        weekDayJudgement.hasWeekendOrWeekdayDiscount(2, 3);
+        weekDayJudgement.addWeekendOrWeekdayDiscount(2, 3);
         Event event = new WeekdayDiscount(2);
         int expectedDiscount = 2 * 2_023;
         assertThat(event.calculateDiscount()).isEqualTo(expectedDiscount);
@@ -88,7 +94,7 @@ public class JudgementTest {
     void weekendDiscount() {
         when(dateReferee.checkOfWeek()).thenReturn(DayOfWeek.FRIDAY);
         Judgement weekendJudgement = createTestDateReferee();
-        weekendJudgement.hasWeekendOrWeekdayDiscount(2, 4);
+        weekendJudgement.addWeekendOrWeekdayDiscount(2, 4);
         Event event = new WeekendDiscount(4);
         int expectedDiscount = 4 * 2_023;
         assertThat(event.calculateDiscount()).isEqualTo(expectedDiscount);
@@ -121,8 +127,9 @@ public class JudgementTest {
     @DisplayName("증정 이벤트 적용될 때 할인 금액 샴페인값 포함되는지 확인")
     @Test
     void calculateDiscountWithGiftPromotion() {
-        int totalAmount = FREE_CHAMPAGNE_THRESHOLD;
-        assertThat(judgement.hasGiftPromotion(totalAmount)).isEqualTo(CHAMPAGNE_PRICE);
+        GiftPromotion giftPromotion = new GiftPromotion();
+        int discount = giftPromotion.calculateDiscount();
+        assertThat(discount).isEqualTo(CHAMPAGNE_PRICE);
     }
 
     private Judgement createTestDateReferee() {

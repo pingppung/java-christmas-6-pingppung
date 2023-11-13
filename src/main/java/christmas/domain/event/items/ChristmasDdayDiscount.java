@@ -1,19 +1,21 @@
-package christmas.domain.event;
+package christmas.domain.event.items;
 
 import christmas.enums.EventType;
 
 public class ChristmasDdayDiscount extends Event {
     private static final int BASE_DISCOUNT = 1_000;
     private static final int ADDITIONAL_DISCOUNT_PER_DAY = 100;
-    private final int day;
+    private static final int CHRISTMAS_DAY = 25;
+    private final int dday;
 
-    public ChristmasDdayDiscount(int day) {
+    public ChristmasDdayDiscount(int dday) {
         super(EventType.CHRISTMAS_DDAY_DISCOUNT);
-        this.day = day;
+        this.dday = dday;
     }
 
     @Override
     public int calculateDiscount() {
-        return BASE_DISCOUNT + (ADDITIONAL_DISCOUNT_PER_DAY * (day - 1));
+        int elapsedDays = CHRISTMAS_DAY - dday - 1;
+        return BASE_DISCOUNT + (ADDITIONAL_DISCOUNT_PER_DAY * elapsedDays);
     }
 }

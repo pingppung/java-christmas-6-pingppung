@@ -1,4 +1,4 @@
-package christmas.domain.event;
+package christmas.domain.event.items;
 
 import christmas.enums.EventType;
 
@@ -8,6 +8,10 @@ public abstract class Event {
 
     public Event(EventType eventType) {
         this.eventType = eventType;
+    }
+
+    public EventType getEventType() {
+        return eventType;
     }
 
     public abstract int calculateDiscount();
