@@ -9,6 +9,7 @@ import christmas.domain.event.items.WeekendDiscount;
 import christmas.enums.EventType;
 import christmas.services.date.DateCalculator;
 import christmas.services.date.DateReferee;
+import christmas.vo.EligibleEventVO;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class Judgement {
     private static final String WEEKDAY = "평일";
     private static final String WEEKEND = "주말";
     private final DateReferee dateReferee;
-    private final List<EligibleEvent> eligibleEvents;
+    private final List<EligibleEventVO> eligibleEvents;
 
 
     //날짜에 대한 이벤트 조건 판단
@@ -82,6 +83,6 @@ public class Judgement {
     }
 
     private void addEventToEligibleList(EventType eventType, Event event) {
-        eligibleEvents.add(new EligibleEvent(eventType, event.calculateDiscount()));
+        eligibleEvents.add(new EligibleEventVO(eventType, event.calculateDiscount()));
     }
 }
