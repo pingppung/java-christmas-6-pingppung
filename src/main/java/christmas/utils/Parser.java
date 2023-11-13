@@ -9,11 +9,11 @@ public class Parser {
     private static final String MENU_ITEM_SEPARATOR = "-";
     private final List<OrderMenuVO> orderDetails;
 
-    private final InputValidator inputValidator;
+    private final OrderValidator orderValidator;
 
-    public Parser(InputValidator inputValidator) {
+    public Parser(OrderValidator orderValidator) {
         this.orderDetails = new ArrayList<>();
-        this.inputValidator = inputValidator;
+        this.orderValidator = orderValidator;
     }
 
     public List<OrderMenuVO> parserOrder(String input) {
@@ -30,7 +30,7 @@ public class Parser {
 
     //메뉴에 대한 개수에 대해서 예외처리
     private Integer convertToInt(String number) {
-        return inputValidator.validateQuantityNonNumeric(number);
+        return orderValidator.validateQuantityNonNumeric(number);
     }
 
 }

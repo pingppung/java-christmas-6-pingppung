@@ -4,20 +4,20 @@
     - ✅ 예상 방문 날짜 입력 - `ReservationController#inputReserveDate`
         - ✅ 날짜 형식 지정하여 입력 받기 - `InputView#getVisitDate`
         - [ERROR] "유효하지 않은 날짜입니다. 다시 입력해 주세요."
-            - ✅ 1 이상 31 이하의 숫자가 아닌 경우 - `InputValidator#validateDateRange`
-            - ✅ 숫자가 아닌 문자가 입력된 경우 - `InputValidator#validateDateNonNumeric`
+            - ✅ 1 이상 31 이하의 숫자가 아닌 경우 - `DateValidator#validateDateRange`
+            - ✅ 숫자가 아닌 문자가 입력된 경우 - `DateValidator#validateDateNonNumeric`
     - ✅ 주문 메뉴와 수량 입력 - `ReservationController#inputReserveMenu`
         - ✅ 메뉴와 수량 입력 받기 - `InputView#getOrderMenu`
         - [ERROR] "유효하지 않은 주문입니다. 다시 입력해 주세요."
-            - ✅ 메뉴판에 없는 메뉴를 입력하는 경우 - `InputValidator#validateMenuExistence`
-            - ✅ 메뉴 개수 1 이상의 숫자가 아닌 경우 - `InputValidator#validateMenuQuantity`
-            - ✅ 숫자가 아닌 문자가 입력된 경우 - `InputValidator#validateQuantityNonNumeric`
-            - ✅ 메뉴 형식이 예시와 다른 경우 - `InputValidator#validateMenuFormat`
-            - ✅ 동일한 메뉴를 중복으로 입력한 경우 - `InputValidator#validateDuplicateMenu`
-            - ✅ 주문한 메뉴 중 음료만 주문한 경우 - `InputValidator#validateDrinkOnlyOrder`
-            - ✅ 주문 메뉴가 하나도 없는 경우 - `InputValidator#validateMenuQuantity`
+            - ✅ 메뉴판에 없는 메뉴를 입력하는 경우 - `OrderValidator#validateMenuExistence`
+            - ✅ 메뉴 개수 1 이상의 숫자가 아닌 경우 - `OrderValidator#validateMenuQuantity`
+            - ✅ 숫자가 아닌 문자가 입력된 경우 - `OrderValidator#validateQuantityNonNumeric`
+            - ✅ 메뉴 형식이 예시와 다른 경우 - `OrderValidator#validateMenuFormat`
+            - ✅ 동일한 메뉴를 중복으로 입력한 경우 - `OrderValidator#validateDuplicateMenu`
+            - ✅ 주문한 메뉴 중 음료만 주문한 경우 - `OrderValidator#validateDrinkOnlyOrder`
+            - ✅ 주문 메뉴가 하나도 없는 경우 - `OrderValidator#validateMenuQuantity`
         - [ERROR] "주문은 최대 20개까지 가능합니다. 다시 입력해 주세요."
-            - ✅ 한 번에 최대 20개까지만 주문 가능한 경우 - `InputValidator#validateMaxOrderQuantity`
+            - ✅ 한 번에 최대 20개까지만 주문 가능한 경우 - `OrderValidator#validateMaxOrderQuantity`
     - ✅ [ERROR]가 포함된 메시지 출력 후, 예외처리되는 부분부터 입력 다시 받음 - `InputHandler#retryInputOnInvalid`
 
 - **출력 기능**
