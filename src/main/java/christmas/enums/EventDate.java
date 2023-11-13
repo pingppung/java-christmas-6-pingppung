@@ -2,12 +2,12 @@ package christmas.enums;
 
 import java.time.LocalDate;
 
-public enum ChristmasDate {
+public enum EventDate {
     CHRISTMAS_DAY(LocalDate.of(2023, 12, 25));
 
     private final LocalDate date;
 
-    ChristmasDate(LocalDate date) {
+    EventDate(LocalDate date) {
         this.date = date;
     }
 
