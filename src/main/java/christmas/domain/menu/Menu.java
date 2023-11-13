@@ -35,8 +35,7 @@ public class Menu {
         if (isMenuInCategory(menu, beverages)) {
             return "Beverage";
         }
-        return "Unknown";
-
+        return "None";
     }
 
     private boolean isMenuInCategory(String menu, Iterable<? extends MenuItem> category) {
