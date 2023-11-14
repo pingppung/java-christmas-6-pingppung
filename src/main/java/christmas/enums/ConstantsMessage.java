@@ -13,13 +13,9 @@ public enum ConstantsMessage {
     FINAL_PAYMENT_AMOUNT("<할인 후 예상 결제 금액>"),
     EVENT_BADGE("<12월 이벤트 배지>");
 
-    private final String message;
+    public final String message;
 
     ConstantsMessage(String message) {
         this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
     }
 }

@@ -8,7 +8,11 @@ public class OutputView {
     private static final String NEWLINE = System.lineSeparator();
 
     public void printMessage(ConstantsMessage message) {
-        System.out.println(message.getMessage());
+        System.out.println(message);
+    }
+
+    public void printFormattedMessage(String output) {
+        System.out.println(output);
     }
 
     public void printMenu(List<Map<String, Integer>> orderMenus) {
@@ -22,17 +26,15 @@ public class OutputView {
     }
 
     public void printAmount(ConstantsMessage message, int amount) {
-        System.out.println(message.getMessage());
+        System.out.println(message);
         System.out.println(amount + "원");
     }
 
-    //증정 메뉴 출력
     public void printGift(String giftProduct) {
         System.out.println(ConstantsMessage.GIFT_MENU);
         System.out.println(giftProduct + "1개");
     }
 
-    //배지 출력
     public void printBadge(String badge) {
         System.out.println(ConstantsMessage.EVENT_BADGE);
         System.out.println(badge);
