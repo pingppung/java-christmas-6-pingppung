@@ -1,12 +1,14 @@
 package christmas.utils;
 
 import christmas.vo.OrderMenuVO;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {
     private static final String FOOD_SEPARATOR = ",";
     private static final String MENU_ITEM_SEPARATOR = "-";
+    private static final String MONEY_CURRENCY_PATTERN = "###,###";
     private final List<OrderMenuVO> orderDetails;
     private final OrderValidator orderValidator;
 
@@ -35,6 +37,15 @@ public class Parser {
         return orderValidator.validateQuantityNonNumeric(number);
     }
 
+    public static String formatCurrency(int amount, String pattern) {
+        DecimalFormat decimalFormat = new DecimalFormat(pattern);
+        return decimalFormat.format(amount);
+    }
+
+    public static String formatMoneyCurrency(int amount) {
+        return formatCurrency(amount, MONEY_CURRENCY_PATTERN);
+    }
+    
     public void validateOrderDetails() {
         orderValidator.validateMenuExistence(orderDetails);
         orderValidator.validateMenuQuantity(orderDetails);
