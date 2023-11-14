@@ -40,7 +40,7 @@ public class DateValidatorTest {
 
     @DisplayName("유효하지 않은 날짜 범위를 입력했을 때 예외 발생")
     @Test
-    void testInvalidDateRange() {
+    void invalidDateRange() {
         int invalidDay = 35;
         assertThatThrownBy(() ->
                 dateValidator.validateDateRange(invalidDay)
@@ -50,7 +50,7 @@ public class DateValidatorTest {
 
     @DisplayName("유효한 날짜 범위를 정상적으로 처리")
     @Test
-    void testValidDateRange() {
+    void validDateRange() {
         int validDay = 10;
         assertDoesNotThrow(() -> dateValidator.validateDateRange(validDay));
     }

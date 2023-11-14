@@ -3,7 +3,6 @@ package christmas.services.event;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import christmas.enums.EventType;
-import christmas.vo.EligibleEventVO;
 import christmas.vo.OrderMenuVO;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +37,7 @@ public class DiscountCalculatorTest {
                 EventType.WEEKDAY_DISCOUNT
         );
 
-        int totalBenefit = calculateBenefit(events);
+        int totalBenefit = calculateDiscount(events);
         int expectedTotalBenefit = 9_469;
         assertEquals(expectedTotalBenefit, totalBenefit);
     }
@@ -50,7 +49,7 @@ public class DiscountCalculatorTest {
                 EventType.CHRISTMAS_DDAY_DISCOUNT
         );
 
-        int totalBenefit = calculateBenefit(events);
+        int totalBenefit = calculateDiscount(events);
         int expectedTotalBenefit = 3_400;
         assertEquals(expectedTotalBenefit, totalBenefit);
     }
@@ -62,7 +61,7 @@ public class DiscountCalculatorTest {
                 EventType.WEEKDAY_DISCOUNT
         );
 
-        int totalBenefit = calculateBenefit(events);
+        int totalBenefit = calculateDiscount(events);
         int expectedTotalBenefit = 6_069;
         assertEquals(expectedTotalBenefit, totalBenefit);
     }
@@ -74,7 +73,7 @@ public class DiscountCalculatorTest {
                 EventType.WEEKEND_DISCOUNT
         );
 
-        int totalBenefit = calculateBenefit(events);
+        int totalBenefit = calculateDiscount(events);
         int expectedTotalBenefit = 6_069;
         assertEquals(expectedTotalBenefit, totalBenefit);
     }
@@ -87,7 +86,7 @@ public class DiscountCalculatorTest {
                 EventType.SPECIAL_DISCOUNT
         );
 
-        int totalBenefit = calculateBenefit(events);
+        int totalBenefit = calculateDiscount(events);
         int expectedTotalBenefit = 1_000;
         assertEquals(expectedTotalBenefit, totalBenefit);
     }
@@ -99,14 +98,13 @@ public class DiscountCalculatorTest {
                 EventType.GIFT_PROMOTION
         );
 
-        int totalBenefit = calculateBenefit(events);
+        int totalBenefit = calculateDiscount(events);
         int expectedTotalBenefit = 25_000;
         assertEquals(expectedTotalBenefit, totalBenefit);
     }
 
-    private int calculateBenefit(List<EventType> events) {
-        List<EligibleEventVO> eligibleEvents = calculator.calculateDiscount(initReservationDate, reserveMenu, events);
-
-        return calculator.calculateTotalBenefit(eligibleEvents);
+    private int calculateDiscount(List<EventType> events) {
+        calculator.calculateDiscount(initReservationDate, reserveMenu, events);
+        return calculator.calculateTotalDiscount();
     }
 }

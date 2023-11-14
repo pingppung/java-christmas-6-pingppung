@@ -20,7 +20,6 @@ public class DiscountCalculator {
 
     public List<EligibleEventVO> calculateDiscount(int reserveDate, List<OrderMenuVO> reserveMenu,
                                                    List<EventType> events) {
-
         EventParamsDTO params = createEventParams(reserveDate, reserveMenu);
 
         for (EventType type : events) {
@@ -28,11 +27,10 @@ public class DiscountCalculator {
             int discount = event.calculateDiscount();
             addEligibleEvent(new EligibleEventVO(event.getEventType(), discount));
         }
-
         return eligibleEvents;
     }
 
-    public int calculateTotalBenefit(List<EligibleEventVO> eligibleEvents) {
+    public int calculateTotalDiscount() {
         return eligibleEvents.stream()
                 .mapToInt(EligibleEventVO::discount)
                 .sum();

@@ -9,7 +9,7 @@ public class InputHandler {
             try {
                 return input.get();
             } catch (IllegalArgumentException e) {
-                System.out.println("[ERROR] 다시 입력해 주세요.");
+                System.out.println(e.getMessage());
             }
         }
     }

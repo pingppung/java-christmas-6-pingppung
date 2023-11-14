@@ -40,7 +40,7 @@ public class OrderValidatorTest {
 
     @DisplayName("메뉴 존재 여부 검증 - 주문이 유효하지 않은 경우")
     @Test
-    public void validateMenuExistence_InvalidOrder() {
+    public void invalidateMenuExistence_InvalidOrder() {
         assertThatThrownBy(() ->
                 orderValidator.validateMenuExistence(InvalidOrderMenu)
         ).isInstanceOf(IllegalArgumentException.class)
@@ -50,13 +50,13 @@ public class OrderValidatorTest {
 
     @DisplayName("주문 최대 수량 검증 - 최대 허용 수량 이하인 경우")
     @Test
-    public void testValidateMaxOrderQuantity_ValidQuantity() {
+    public void validateMaxOrderQuantity_ValidQuantity() {
         orderValidator.validateMaxOrderQuantity(validOrderMenu);
     }
 
     @DisplayName("주문 최대 수량 검증 - 최대 허용 수량 초과한 경우")
     @Test
-    public void testValidateMaxOrderQuantity_InvalidQuantity() {
+    public void invalidateMaxOrderQuantity_InvalidQuantity() {
         validOrderMenu.add(new OrderMenuVO("ICE_CREAM", 16));
         assertThatThrownBy(() ->
                 orderValidator.validateMaxOrderQuantity(validOrderMenu)
