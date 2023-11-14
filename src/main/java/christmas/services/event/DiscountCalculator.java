@@ -40,7 +40,7 @@ public class DiscountCalculator {
 
     private EventParamsDTO createEventParams(int reserveDate, List<OrderMenuVO> reserveMenu) {
         int dessertCount = findMenuCount(reserveMenu, "Dessert");
-        int mainCount = findMenuCount(reserveMenu, "MainFood");
+        int mainCount = findMenuCount(reserveMenu, "MainDish");
         return new EventParamsDTO(reserveDate, dessertCount, mainCount);
     }
 
@@ -51,7 +51,8 @@ public class DiscountCalculator {
     private int findMenuCount(List<OrderMenuVO> reserveMenu, String menuType) {
         long count = reserveMenu.stream()
                 .filter(menuItem -> menu.getMenuCategory(menuItem.menuName()).equals(menuType))
-                .count();
+                .mapToInt(OrderMenuVO::quantity)
+                .sum();
         return (int) count;
     }
 }

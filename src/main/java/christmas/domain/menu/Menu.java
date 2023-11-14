@@ -27,7 +27,7 @@ public class Menu {
             return "Appetizer";
         }
         if (isMenuInCategory(menu, mainCourses)) {
-            return "Main Course";
+            return "MainDish";
         }
         if (isMenuInCategory(menu, desserts)) {
             return "Dessert";
