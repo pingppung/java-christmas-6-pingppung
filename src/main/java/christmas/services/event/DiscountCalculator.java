@@ -10,19 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiscountCalculator {
-    private static Menu menu;
+    private final Menu menu;
+    private final List<EligibleEventVO> eligibleEvents;
 
     public DiscountCalculator() {
         this.menu = new Menu();
+        eligibleEvents = new ArrayList<>();
     }
 
-    private static List<EligibleEventVO> eligibleEvents = new ArrayList<>();
+    public List<EligibleEventVO> calculateDiscount(int reserveDate, List<OrderMenuVO> reserveMenu,
+                                                   List<EventType> events) {
 
-    public static List<EligibleEventVO> calculateDiscount(int reserveDate, List<OrderMenuVO> reserveMenu,
-                                                          List<EventType> events) {
-        int dessertCount = findMenuCount(reserveMenu, "Dessert");
-        int mainCount = findMenuCount(reserveMenu, "MainFood");
-        EventParamsDTO params = new EventParamsDTO(reserveDate, dessertCount, mainCount);
+        EventParamsDTO params = createEventParams(reserveDate, reserveMenu);
 
         for (EventType type : events) {
             Event event = type.createEvent(params);
@@ -33,11 +32,23 @@ public class DiscountCalculator {
         return eligibleEvents;
     }
 
-    public static void addEligibleEvent(EligibleEventVO event) {
+    public int calculateTotalBenefit(List<EligibleEventVO> eligibleEvents) {
+        return eligibleEvents.stream()
+                .mapToInt(EligibleEventVO::discount)
+                .sum();
+    }
+
+    private EventParamsDTO createEventParams(int reserveDate, List<OrderMenuVO> reserveMenu) {
+        int dessertCount = findMenuCount(reserveMenu, "Dessert");
+        int mainCount = findMenuCount(reserveMenu, "MainFood");
+        return new EventParamsDTO(reserveDate, dessertCount, mainCount);
+    }
+
+    private void addEligibleEvent(EligibleEventVO event) {
         eligibleEvents.add(event);
     }
 
-    private static int findMenuCount(List<OrderMenuVO> reserveMenu, String menuType) {
+    private int findMenuCount(List<OrderMenuVO> reserveMenu, String menuType) {
         long count = reserveMenu.stream()
                 .filter(menuItem -> menu.getMenuCategory(menuItem.menuName()).equals(menuType))
                 .count();
