@@ -11,7 +11,7 @@ public class OrderValidator {
     private static final int MIN_ORDER_QUANTITY = 1;
     private static final int MAX_ORDER_TOTAL_QUANTITY = 20;
     private static final String PATTERN = "^[가-힣]+-[0-9]+$";
-    private static final String NONE_CATEGORY = "NONE";
+    private static final String NONE_CATEGORY = "None";
     private static final String BEVERAGE_CATEGORY = "Beverage";
     private static final String INVALID_ORDER_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
     private static final String ORDER_LIMIT_EXCEEDED_MESSAGE = "[ERROR] 주문은 최대 20개까지 가능합니다. 다시 입력해 주세요.";

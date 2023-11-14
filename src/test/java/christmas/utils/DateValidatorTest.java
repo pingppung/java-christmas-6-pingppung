@@ -12,7 +12,7 @@ public class DateValidatorTest {
     private DateValidator dateValidator;
 
     @BeforeEach
-    void beforeEach() {
+    void setUp() {
         dateValidator = new DateValidator();
     }
 
