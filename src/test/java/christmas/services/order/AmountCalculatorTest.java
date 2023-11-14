@@ -38,8 +38,9 @@ public class AmountCalculatorTest {
     public void getDiscountedPaymentAmount() {
         int totalOrderAmount = 10_000;
         int totalDiscountAmount = 2_000;
+        int giftEventDiscount = 0;
         int discountedPaymentAmount = amountCalculator.getDiscountedPaymentAmount(totalOrderAmount,
-                totalDiscountAmount);
+                totalDiscountAmount, giftEventDiscount);
         int expectedPaymentAmount = 8_000;
         assertEquals(expectedPaymentAmount, discountedPaymentAmount);
     }

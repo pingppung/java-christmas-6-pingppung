@@ -2,6 +2,7 @@ package christmas.services.event;
 
 import christmas.domain.event.enums.EventType;
 import christmas.domain.event.items.Event;
+import christmas.domain.event.items.GiftPromotion;
 import christmas.domain.menu.Menu;
 import christmas.dto.EventParamsDTO;
 import christmas.vo.EligibleEventVO;
@@ -52,5 +53,15 @@ public class DiscountCalculator {
                 .mapToInt(OrderMenuVO::quantity)
                 .sum();
         return (int) count;
+    }
+
+    public int getGiftPromotionDiscount() {
+        for (EligibleEventVO event : eligibleEvents) {
+            if (event.type() == EventType.GIFT_PROMOTION) {
+                Event giftPromotion = new GiftPromotion();
+                return giftPromotion.calculateDiscount();
+            }
+        }
+        return 0;
     }
 }

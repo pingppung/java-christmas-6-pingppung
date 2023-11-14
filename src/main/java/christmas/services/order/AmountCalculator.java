@@ -17,7 +17,7 @@ public class AmountCalculator {
         return totalAmount;
     }
 
-    public int getDiscountedPaymentAmount(int totalOrderAmount, int totalDiscountAmount) {
-        return totalOrderAmount - totalDiscountAmount;
+    public int getDiscountedPaymentAmount(int totalOrderAmount, int totalDiscountAmount, int giftEventDiscount) {
+        return totalOrderAmount - totalDiscountAmount + giftEventDiscount;
     }
 }
