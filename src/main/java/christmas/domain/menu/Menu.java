@@ -1,11 +1,11 @@
 package christmas.domain.menu;
 
 
-import christmas.enums.menuItems.Appetizer;
-import christmas.enums.menuItems.Beverage;
-import christmas.enums.menuItems.Dessert;
-import christmas.enums.menuItems.MainDish;
-import christmas.enums.menuItems.MenuItem;
+import christmas.domain.menu.items.Appetizer;
+import christmas.domain.menu.items.Beverage;
+import christmas.domain.menu.items.Dessert;
+import christmas.domain.menu.items.MainDish;
+import christmas.domain.menu.items.MenuItem;
 import java.util.Arrays;
 import java.util.List;
 

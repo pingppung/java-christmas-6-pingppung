@@ -1,19 +1,20 @@
-package christmas.enums.menuItems;
+package christmas.domain.menu.items;
 
-public enum Dessert implements MenuItem {
-    CHOCO_CAKE("초코케이크", 15000),
-    ICE_CREAM("아이스크림", 5000);
+public enum Beverage implements MenuItem {
+    ZERO_COLA("제로콜라", 3000),
+    RED_WINE("레드와인", 60000),
+    CHAMPAGNE("샴페인", 25000);
 
     private final String name;
     private final int price;
 
-    Dessert(String name, int price) {
+    Beverage(String name, int price) {
         this.name = name;
         this.price = price;
     }
 
     public String getType() {
-        return "Dessert";
+        return "Beverage";
     }
 
     public String getName() {

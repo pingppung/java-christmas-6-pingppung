@@ -1,9 +1,9 @@
 package christmas.services.event;
 
+import christmas.domain.event.enums.EventType;
 import christmas.domain.event.items.Event;
 import christmas.domain.menu.Menu;
 import christmas.dto.EventParamsDTO;
-import christmas.enums.EventType;
 import christmas.vo.EligibleEventVO;
 import christmas.vo.OrderMenuVO;
 import java.util.ArrayList;

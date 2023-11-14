@@ -1,6 +1,6 @@
 package christmas.services.date;
 
-import static christmas.enums.EventDate.CHRISTMAS_DAY;
+import static christmas.domain.event.enums.EventDate.CHRISTMAS_DAY;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

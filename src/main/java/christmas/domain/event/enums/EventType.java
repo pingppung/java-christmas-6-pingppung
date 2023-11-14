@@ -1,4 +1,4 @@
-package christmas.enums;
+package christmas.domain.event.enums;
 
 import christmas.domain.event.items.ChristmasDdayDiscount;
 import christmas.domain.event.items.Event;

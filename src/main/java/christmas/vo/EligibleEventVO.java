@@ -1,6 +1,6 @@
 package christmas.vo;
 
-import christmas.enums.EventType;
+import christmas.domain.event.enums.EventType;
 
 public record EligibleEventVO(EventType type, int discount) {
     @Override

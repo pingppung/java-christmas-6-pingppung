@@ -1,4 +1,4 @@
-package christmas.enums;
+package christmas.constants;
 
 public enum ConstantsMessage {
     GREETING("안녕하세요! 우테코 식당 %d월 이벤트 플래너입니다."),

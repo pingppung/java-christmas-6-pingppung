@@ -1,6 +1,6 @@
 package christmas.domain.event.items;
 
-import christmas.enums.EventType;
+import christmas.domain.event.enums.EventType;
 
 public class ChristmasDdayDiscount extends Event {
     private static final int BASE_DISCOUNT = 1_000;

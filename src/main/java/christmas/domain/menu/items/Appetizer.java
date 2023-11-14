@@ -1,4 +1,4 @@
-package christmas.enums.menuItems;
+package christmas.domain.menu.items;
 
 public enum Appetizer implements MenuItem {
     YANGSONG_ISUPE("양송이수프", 6000),

@@ -1,6 +1,6 @@
 package christmas.domain.event.items;
 
-import christmas.enums.EventType;
+import christmas.domain.event.enums.EventType;
 
 public abstract class Event {
     private int discountAmount;

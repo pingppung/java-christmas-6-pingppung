@@ -1,6 +1,6 @@
 package christmas.domain.event;
 
-import christmas.enums.EventType;
+import christmas.domain.event.enums.EventType;
 import christmas.services.date.DateReferee;
 import java.time.DayOfWeek;
 import java.util.ArrayList;

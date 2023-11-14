@@ -1,7 +1,7 @@
 package christmas.domain.event.items;
 
-import christmas.enums.EventType;
-import christmas.enums.menuItems.Beverage;
+import christmas.domain.event.enums.EventType;
+import christmas.domain.menu.items.Beverage;
 
 public class GiftPromotion extends Event {
     private static final int GIFT_PRICE = Beverage.CHAMPAGNE.getPrice();

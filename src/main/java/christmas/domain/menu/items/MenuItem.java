@@ -1,4 +1,4 @@
-package christmas.enums.menuItems;
+package christmas.domain.menu.items;
 
 public interface MenuItem {
     String getName();

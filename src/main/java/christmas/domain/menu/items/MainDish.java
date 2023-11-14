@@ -1,4 +1,4 @@
-package christmas.enums.menuItems;
+package christmas.domain.menu.items;
 
 public enum MainDish implements MenuItem {
     T_BONE_STEAK("티본스테이크", 55000),

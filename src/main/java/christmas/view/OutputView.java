@@ -1,6 +1,6 @@
 package christmas.view;
 
-import christmas.enums.ConstantsMessage;
+import christmas.constants.ConstantsMessage;
 import java.util.List;
 import java.util.Map;
 

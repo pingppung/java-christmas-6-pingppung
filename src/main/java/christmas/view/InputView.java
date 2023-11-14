@@ -1,8 +1,8 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.enums.ConstantsMessage;
-import christmas.enums.EventDate;
+import christmas.constants.ConstantsMessage;
+import christmas.domain.event.enums.EventDate;
 
 public class InputView {
     public String getVisitDate() {

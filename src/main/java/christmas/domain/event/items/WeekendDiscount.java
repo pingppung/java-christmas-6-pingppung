@@ -1,6 +1,6 @@
 package christmas.domain.event.items;
 
-import christmas.enums.EventType;
+import christmas.domain.event.enums.EventType;
 
 public class WeekendDiscount extends Event {
 

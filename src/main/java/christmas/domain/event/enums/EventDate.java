@@ -1,4 +1,4 @@
-package christmas.enums;
+package christmas.domain.event.enums;
 
 import java.time.LocalDate;
 

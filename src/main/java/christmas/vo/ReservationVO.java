@@ -1,6 +1,6 @@
 package christmas.vo;
 
-import christmas.enums.EventDate;
+import christmas.domain.event.enums.EventDate;
 import java.time.LocalDate;
 import java.util.List;
 

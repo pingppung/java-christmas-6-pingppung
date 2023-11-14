@@ -2,7 +2,7 @@ package christmas.services.event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import christmas.enums.EventType;
+import christmas.domain.event.enums.EventType;
 import christmas.vo.OrderMenuVO;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
