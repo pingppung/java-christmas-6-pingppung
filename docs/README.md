@@ -53,10 +53,10 @@
         - ✅ 증정품 - `Judgement#hasGiftPromotion`
             - 할인 전 총 주문 금액이 12만원 이상일때, 샴페인 1개 증정
     - 주문 및 결제 처리
-        - 총 주문 금액 계산
+        - ✅ 총 주문 금액 계산 - `AmountCalculator#calculateTotalOrderAmount`
         - ✅ 총 혜택 금액 계산 - `DiscountCalculator#calculateDiscount`
             - 할인 금액의 합계 (+ 증정 메뉴의 가격)
-        - 예상 결제 금액 계산
+        - ✅ 예상 결제 금액 계산 - `AmountCalculator#getDiscountedPaymentAmount`
             - 할인 전 총 주문 금액 - 혜택 금액
     - 이벤트 배지 여부
         - 5천원 이상 : 별

@@ -46,4 +46,29 @@ public class Menu {
         }
         return false;
     }
+
+    public int getMenuPrice(String menuName, String menuType) {
+        if ("Appetizer".equals(menuType)) {
+            return getPrice(menuName, appetizers);
+        }
+        if ("MainDish".equals(menuType)) {
+            return getPrice(menuName, mainCourses);
+        }
+        if ("Dessert".equals(menuType)) {
+            return getPrice(menuName, desserts);
+        }
+        if ("Beverage".equals(menuType)) {
+            return getPrice(menuName, beverages);
+        }
+        return -1;
+    }
+
+    private int getPrice(String menuName, List<MenuItem> category) {
+        for (MenuItem item : category) {
+            if (item.getName().equals(menuName)) {
+                return item.getPrice();
+            }
+        }
+        return -1;
+    }
 }
