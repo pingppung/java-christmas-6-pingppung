@@ -14,4 +14,12 @@ public enum EventDate {
     public LocalDate getDate() {
         return date;
     }
+
+    public int getYear() {
+        return date.getYear();
+    }
+
+    public int getMonthValue() {
+        return date.getMonthValue();
+    }
 }

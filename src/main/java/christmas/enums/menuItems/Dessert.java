@@ -12,6 +12,10 @@ public enum Dessert implements MenuItem {
         this.price = price;
     }
 
+    public String getType() {
+        return "Dessert";
+    }
+
     public String getName() {
         return name;
     }

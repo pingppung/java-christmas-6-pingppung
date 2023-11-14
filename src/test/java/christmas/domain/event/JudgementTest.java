@@ -83,7 +83,7 @@ public class JudgementTest {
     void weekdayDiscount() {
         when(dateReferee.checkOfWeek()).thenReturn(DayOfWeek.WEDNESDAY);
         Judgement weekDayJudgement = createTestDateReferee();
-        weekDayJudgement.addWeekendOrWeekdayDiscount(2, 3);
+        weekDayJudgement.addWeekendOrWeekdayDiscount();
         Event event = new WeekdayDiscount(2);
         int expectedDiscount = 2 * 2_023;
         assertThat(event.calculateDiscount()).isEqualTo(expectedDiscount);
@@ -94,7 +94,7 @@ public class JudgementTest {
     void weekendDiscount() {
         when(dateReferee.checkOfWeek()).thenReturn(DayOfWeek.FRIDAY);
         Judgement weekendJudgement = createTestDateReferee();
-        weekendJudgement.addWeekendOrWeekdayDiscount(2, 4);
+        weekendJudgement.addWeekendOrWeekdayDiscount();
         Event event = new WeekendDiscount(4);
         int expectedDiscount = 4 * 2_023;
         assertThat(event.calculateDiscount()).isEqualTo(expectedDiscount);

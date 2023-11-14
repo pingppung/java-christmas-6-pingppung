@@ -10,20 +10,24 @@ public class Parser {
     private final List<OrderMenuVO> orderDetails;
     private final OrderValidator orderValidator;
 
-    public Parser(OrderValidator orderValidator) {
+    public Parser() {
         this.orderDetails = new ArrayList<>();
-        this.orderValidator = orderValidator;
+        this.orderValidator = new OrderValidator();
     }
 
     public List<OrderMenuVO> parserOrder(String input) {
         String[] menus = input.split(FOOD_SEPARATOR);
+
         for (String menu : menus) {
+            orderValidator.validateMenuFormat(menu);
+
             String[] parts = menu.split(MENU_ITEM_SEPARATOR);
             String menuName = parts[0];
             int quantity = convertToInt(parts[1]);
             OrderMenuVO orderMenu = new OrderMenuVO(menuName, quantity);
             orderDetails.add(orderMenu);
         }
+        validateOrderDetails();
         return orderDetails;
     }
 

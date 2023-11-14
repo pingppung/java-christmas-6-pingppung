@@ -1,6 +1,6 @@
 package christmas.enums.menuItems;
 
-public enum MainCourse implements MenuItem {
+public enum MainDish implements MenuItem {
     T_BONE_STEAK("티본스테이크", 55000),
     BBQ_RIB("바비큐립", 54000),
     SEAFOOD_PASTA("해산물파스타", 35000),
@@ -9,9 +9,13 @@ public enum MainCourse implements MenuItem {
     private final String name;
     private final int price;
 
-    MainCourse(String name, int price) {
+    MainDish(String name, int price) {
         this.name = name;
         this.price = price;
+    }
+
+    public String getType() {
+        return "MainDish";
     }
 
     public String getName() {

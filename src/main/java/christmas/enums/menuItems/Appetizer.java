@@ -13,6 +13,10 @@ public enum Appetizer implements MenuItem {
         this.price = price;
     }
 
+    public String getType() {
+        return "Appitizer";
+    }
+
     public String getName() {
         return name;
     }

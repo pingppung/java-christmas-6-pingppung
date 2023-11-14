@@ -1,9 +1,10 @@
 package christmas.domain.event.items;
 
 import christmas.enums.EventType;
+import christmas.enums.menuItems.Beverage;
 
 public class GiftPromotion extends Event {
-    private static final int CHAMPAGNE_PRICE = 25_000;
+    private static final int GIFT_PRICE = Beverage.CHAMPAGNE.getPrice();
 
     public GiftPromotion() {
         super(EventType.GIFT_PROMOTION);
@@ -11,6 +12,6 @@ public class GiftPromotion extends Event {
 
     @Override
     public int calculateDiscount() {
-        return CHAMPAGNE_PRICE;
+        return GIFT_PRICE;
     }
 }

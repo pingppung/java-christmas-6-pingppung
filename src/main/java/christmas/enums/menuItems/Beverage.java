@@ -13,6 +13,10 @@ public enum Beverage implements MenuItem {
         this.price = price;
     }
 
+    public String getType() {
+        return "Beverage";
+    }
+
     public String getName() {
         return name;
     }

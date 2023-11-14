@@ -4,7 +4,7 @@ package christmas.domain.menu;
 import christmas.enums.menuItems.Appetizer;
 import christmas.enums.menuItems.Beverage;
 import christmas.enums.menuItems.Dessert;
-import christmas.enums.menuItems.MainCourse;
+import christmas.enums.menuItems.MainDish;
 import christmas.enums.menuItems.MenuItem;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +17,7 @@ public class Menu {
 
     public Menu() {
         this.appetizers = Arrays.asList(Appetizer.values());
-        this.mainCourses = Arrays.asList(MainCourse.values());
+        this.mainCourses = Arrays.asList(MainDish.values());
         this.desserts = Arrays.asList(Dessert.values());
         this.beverages = Arrays.asList(Beverage.values());
     }
