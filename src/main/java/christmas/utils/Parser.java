@@ -20,11 +20,9 @@ public class Parser {
 
     public List<OrderMenuVO> parserOrder(String input) {
         String[] menus = input.split(FOOD_SEPARATOR);
-
         for (String menu : menus) {
             menu = menu.trim();
             orderValidator.validateMenuFormat(menu);
-
             String[] parts = menu.split(MENU_ITEM_SEPARATOR);
             String menuName = parts[0];
             int quantity = convertToInt(parts[1]);
@@ -56,5 +54,4 @@ public class Parser {
         orderValidator.validateNonZeroOrderQuantity(orderDetails);
         orderValidator.validateMaxOrderQuantity(orderDetails);
     }
-
 }

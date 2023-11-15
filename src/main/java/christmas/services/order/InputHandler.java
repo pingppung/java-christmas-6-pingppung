@@ -13,7 +13,7 @@ public class InputHandler {
             }
         }
     }
-
+    
     @FunctionalInterface
     public interface InputSupplier<T> {
         T get() throws IllegalArgumentException;

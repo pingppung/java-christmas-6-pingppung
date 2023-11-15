@@ -33,7 +33,7 @@ public class JudgementTest {
     @DisplayName("특별 할인이 적용되는지 확인 - 일요일인 경우")
     @Test
     void specialDiscountAppliedOnSunday() {
-        when(dateReferee.checkOfWeek()).thenReturn(DayOfWeek.SUNDAY);
+        when(dateReferee.getDayOfWeek()).thenReturn(DayOfWeek.SUNDAY);
         when(dateReferee.isChristmas()).thenReturn(false);
         boolean hasSpecialDiscount = judgement.checkStarInEventCalendar();
         assertTrue(hasSpecialDiscount);
@@ -42,7 +42,7 @@ public class JudgementTest {
     @DisplayName("특별 할인이 적용되는지 확인 - 크리스마스인 경우")
     @Test
     void specialDiscountAppliedOnChristmas() {
-        when(dateReferee.checkOfWeek()).thenReturn(DayOfWeek.MONDAY); // 아무 요일이나 크리스마스가 아닌 경우로 가정
+        when(dateReferee.getDayOfWeek()).thenReturn(DayOfWeek.MONDAY); // 아무 요일이나 크리스마스가 아닌 경우로 가정
         when(dateReferee.isChristmas()).thenReturn(true);
         boolean hasSpecialDiscount = judgement.checkStarInEventCalendar();
         assertTrue(hasSpecialDiscount);
@@ -51,7 +51,7 @@ public class JudgementTest {
     @DisplayName("특별 할인이 적용되지 않는 경우 확인")
     @Test
     void specialDiscountNotApplied() {
-        when(dateReferee.checkOfWeek()).thenReturn(DayOfWeek.THURSDAY);
+        when(dateReferee.getDayOfWeek()).thenReturn(DayOfWeek.THURSDAY);
         when(dateReferee.isChristmas()).thenReturn(false);
 
         boolean hasSpecialDiscount = judgement.checkStarInEventCalendar();
@@ -81,7 +81,7 @@ public class JudgementTest {
     @DisplayName("평일 할인 적용 여부 확인")
     @Test
     void weekdayDiscount() {
-        when(dateReferee.checkOfWeek()).thenReturn(DayOfWeek.WEDNESDAY);
+        when(dateReferee.getDayOfWeek()).thenReturn(DayOfWeek.WEDNESDAY);
         Judgement weekDayJudgement = createTestDateReferee();
         weekDayJudgement.addWeekendOrWeekdayDiscount();
         Event event = new WeekdayDiscount(2);
@@ -92,7 +92,7 @@ public class JudgementTest {
     @DisplayName("주말 할인 적용 여부 확인")
     @Test
     void weekendDiscount() {
-        when(dateReferee.checkOfWeek()).thenReturn(DayOfWeek.FRIDAY);
+        when(dateReferee.getDayOfWeek()).thenReturn(DayOfWeek.FRIDAY);
         Judgement weekendJudgement = createTestDateReferee();
         weekendJudgement.addWeekendOrWeekdayDiscount();
         Event event = new WeekendDiscount(4);

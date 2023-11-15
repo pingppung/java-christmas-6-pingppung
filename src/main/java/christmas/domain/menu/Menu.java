@@ -1,6 +1,5 @@
 package christmas.domain.menu;
 
-
 import christmas.domain.menu.items.Appetizer;
 import christmas.domain.menu.items.Beverage;
 import christmas.domain.menu.items.Dessert;
@@ -10,19 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Menu {
-    private final List<MenuItem> appetizers;
-    private final List<MenuItem> mainCourses;
-    private final List<MenuItem> desserts;
-    private final List<MenuItem> beverages;
+    private static final List<MenuItem> appetizers = Arrays.asList(Appetizer.values());
+    private static final List<MenuItem> mainCourses = Arrays.asList(MainDish.values());
+    private static final List<MenuItem> desserts = Arrays.asList(Dessert.values());
+    private static final List<MenuItem> beverages = Arrays.asList(Beverage.values());
 
-    public Menu() {
-        this.appetizers = Arrays.asList(Appetizer.values());
-        this.mainCourses = Arrays.asList(MainDish.values());
-        this.desserts = Arrays.asList(Dessert.values());
-        this.beverages = Arrays.asList(Beverage.values());
+    private Menu() {
     }
 
-    public String getMenuCategory(String menu) {
+    public static String getMenuCategory(String menu) {
         if (isMenuInCategory(menu, appetizers)) {
             return "Appetizer";
         }
@@ -38,7 +33,7 @@ public class Menu {
         return "None";
     }
 
-    private boolean isMenuInCategory(String menu, Iterable<? extends MenuItem> category) {
+    private static boolean isMenuInCategory(String menu, Iterable<? extends MenuItem> category) {
         for (MenuItem item : category) {
             if (item.getName().equals(menu)) {
                 return true;
@@ -47,23 +42,28 @@ public class Menu {
         return false;
     }
 
-    public int getMenuPrice(String menuName, String menuType) {
-        if ("Appetizer".equals(menuType)) {
-            return getPrice(menuName, appetizers);
+    public static int getMenuPrice(String menuName, String menuType) {
+        List<MenuItem> category;
+        switch (menuType) {
+            case "Appetizer":
+                category = appetizers;
+                break;
+            case "MainDish":
+                category = mainCourses;
+                break;
+            case "Dessert":
+                category = desserts;
+                break;
+            case "Beverage":
+                category = beverages;
+                break;
+            default:
+                return -1;
         }
-        if ("MainDish".equals(menuType)) {
-            return getPrice(menuName, mainCourses);
-        }
-        if ("Dessert".equals(menuType)) {
-            return getPrice(menuName, desserts);
-        }
-        if ("Beverage".equals(menuType)) {
-            return getPrice(menuName, beverages);
-        }
-        return -1;
+        return getPrice(menuName, category);
     }
 
-    private int getPrice(String menuName, List<MenuItem> category) {
+    private static int getPrice(String menuName, List<MenuItem> category) {
         for (MenuItem item : category) {
             if (item.getName().equals(menuName)) {
                 return item.getPrice();

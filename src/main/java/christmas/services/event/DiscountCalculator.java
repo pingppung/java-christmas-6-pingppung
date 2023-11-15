@@ -2,7 +2,6 @@ package christmas.services.event;
 
 import christmas.domain.event.enums.EventType;
 import christmas.domain.event.items.Event;
-import christmas.domain.event.items.GiftPromotion;
 import christmas.domain.menu.Menu;
 import christmas.dto.EventParamsDTO;
 import christmas.vo.EligibleEventVO;
@@ -11,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiscountCalculator {
-    private final Menu menu;
+    private static final String DESSERT_TYPE = "Dessert";
+    private static final String MAIN_DISH_TYPE = "MainDish";
     private final List<EligibleEventVO> eligibleEvents;
 
     public DiscountCalculator() {
-        this.menu = new Menu();
-        eligibleEvents = new ArrayList<>();
+        this.eligibleEvents = new ArrayList<>();
     }
 
     public List<EligibleEventVO> calculateDiscount(int reserveDate, List<OrderMenuVO> reserveMenu,
@@ -40,8 +39,8 @@ public class DiscountCalculator {
     }
 
     private EventParamsDTO createEventParams(int reserveDate, List<OrderMenuVO> reserveMenu) {
-        int dessertCount = findMenuCount(reserveMenu, "Dessert");
-        int mainCount = findMenuCount(reserveMenu, "MainDish");
+        int dessertCount = findMenuCount(reserveMenu, DESSERT_TYPE);
+        int mainCount = findMenuCount(reserveMenu, MAIN_DISH_TYPE);
         return new EventParamsDTO(reserveDate, dessertCount, mainCount);
     }
 
@@ -51,19 +50,17 @@ public class DiscountCalculator {
 
     private int findMenuCount(List<OrderMenuVO> reserveMenu, String menuType) {
         long count = reserveMenu.stream()
-                .filter(menuItem -> menu.getMenuCategory(menuItem.menuName()).equals(menuType))
+                .filter(menuItem -> Menu.getMenuCategory(menuItem.menuName()).equals(menuType))
                 .mapToInt(OrderMenuVO::quantity)
                 .sum();
         return (int) count;
     }
 
     public int getGiftPromotionDiscount() {
-        for (EligibleEventVO event : eligibleEvents) {
-            if (event.type() == EventType.GIFT_PROMOTION) {
-                Event giftPromotion = new GiftPromotion();
-                return giftPromotion.calculateDiscount();
-            }
-        }
-        return 0;
+        return eligibleEvents.stream()
+                .filter(event -> event.type() == EventType.GIFT_PROMOTION)
+                .mapToInt(EligibleEventVO::discount)
+                .findFirst()
+                .orElse(0);
     }
 }

@@ -1,5 +1,6 @@
 package christmas.services.order;
 
+import christmas.constants.ErrorMessage;
 import christmas.domain.menu.Menu;
 import christmas.vo.OrderMenuVO;
 import java.util.HashSet;
@@ -13,19 +14,16 @@ public class OrderValidator {
     private static final String PATTERN = "^[가-힣]+-[0-9]+$";
     private static final String NONE_CATEGORY = "None";
     private static final String BEVERAGE_CATEGORY = "Beverage";
-    private static final String INVALID_ORDER_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
-    public static final String MAX_ORDER_LIMIT_EXCEEDED = "[ERROR] 주문은 최대 20개까지 가능합니다. 다시 입력해 주세요.";
-    private final Menu menu;
 
     public OrderValidator() {
-        menu = new Menu();
+
     }
 
     public void validateMenuExistence(List<OrderMenuVO> orderMenuList) {
         for (OrderMenuVO orderMenu : orderMenuList) {
             String food = orderMenu.menuName();
-            if (menu.getMenuCategory(food).equals(NONE_CATEGORY)) {
-                throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+            if (Menu.getMenuCategory(food).equals(NONE_CATEGORY)) {
+                throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_MESSAGE.message);
             }
         }
     }
@@ -34,7 +32,7 @@ public class OrderValidator {
         for (OrderMenuVO orderMenu : orderMenuList) {
             int quantity = orderMenu.quantity();
             if (quantity < MIN_ORDER_QUANTITY) {
-                throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+                throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_MESSAGE.message);
             }
         }
     }
@@ -43,13 +41,13 @@ public class OrderValidator {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_MESSAGE.message);
         }
     }
 
     public void validateMenuFormat(String food) {
         if (!food.matches(PATTERN)) {
-            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_MESSAGE.message);
         }
     }
 
@@ -57,7 +55,7 @@ public class OrderValidator {
         Set<OrderMenuVO> uniqueMenuSet = new HashSet<>();
         for (OrderMenuVO menu : orderedMenu) {
             if (!uniqueMenuSet.add(menu)) {
-                throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+                throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_MESSAGE.message);
             }
         }
     }
@@ -68,18 +66,18 @@ public class OrderValidator {
                 .anyMatch(menu -> !isBeverage(menu.menuName()));
 
         if (!containsFood) {
-            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_MESSAGE.message);
         }
     }
 
     private boolean isBeverage(String food) {
-        return menu.getMenuCategory(food).equals(BEVERAGE_CATEGORY);
+        return Menu.getMenuCategory(food).equals(BEVERAGE_CATEGORY);
     }
 
 
     public void validateNonZeroOrderQuantity(List<OrderMenuVO> orderedMenu) {
         if (orderedMenu.size() == ZERO_ORDER_QUANTITY) {
-            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+            throw new IllegalArgumentException(ErrorMessage.INVALID_ORDER_MESSAGE.message);
         }
     }
 
@@ -88,7 +86,7 @@ public class OrderValidator {
                 .mapToInt(OrderMenuVO::quantity)
                 .sum();
         if (totalQuantity > MAX_ORDER_TOTAL_QUANTITY) {
-            throw new IllegalArgumentException(MAX_ORDER_LIMIT_EXCEEDED);
+            throw new IllegalArgumentException(ErrorMessage.MAX_ORDER_LIMIT_EXCEEDED.message);
         }
     }
 }

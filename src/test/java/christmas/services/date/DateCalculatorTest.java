@@ -14,20 +14,20 @@ public class DateCalculatorTest {
 
     @BeforeEach
     void setUp() {
-        dateCalculator = DateCalculator.create();
+        dateCalculator = new DateCalculator();
         christmasDate = LocalDate.of(2023, 12, 25);
     }
 
     private int initializeReservationDate(int day) {
         LocalDate reservationDate = LocalDate.of(2023, 12, day);
-        return dateCalculator.countDday(day);
+        return dateCalculator.countDaysUntilChristmas(reservationDate);
     }
 
     @DisplayName("크리스마스까지의 디데이를 정확히 계산")
     @Test
     void countDdayForChristmas() {
-        int dday = dateCalculator.countDday(12);
         LocalDate reservationDate = LocalDate.of(2023, 12, 12);
+        int dday = dateCalculator.countDaysUntilChristmas(reservationDate);
         long expectedDday = ChronoUnit.DAYS.between(reservationDate, christmasDate);
         assertThat(dday).isEqualTo((int) expectedDday);
     }

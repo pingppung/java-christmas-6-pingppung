@@ -34,8 +34,8 @@ public class Judgement {
     }
 
     protected void addWeekendOrWeekdayDiscount() {
-        DayOfWeek dayOfWeek = dateReferee.checkOfWeek();
-        String isWeekdayOrWeekend = dateReferee.checkWeekendOrWeekday(dayOfWeek);
+        DayOfWeek dayOfWeek = dateReferee.getDayOfWeek();
+        String isWeekdayOrWeekend = dateReferee.checkWeekendOrWeekday();
         if (isWeekdayOrWeekend.equals(WEEKDAY)) {
             eligibleEvents.add(EventType.WEEKDAY_DISCOUNT);
         }
@@ -51,7 +51,7 @@ public class Judgement {
     }
 
     protected boolean checkStarInEventCalendar() {
-        return dateReferee.checkOfWeek() == DayOfWeek.SUNDAY || dateReferee.isChristmas();
+        return dateReferee.getDayOfWeek() == DayOfWeek.SUNDAY || dateReferee.isChristmas();
     }
 
     protected void addGiftPromotion(int totalAmount) {
