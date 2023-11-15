@@ -62,8 +62,8 @@ public class JudgementTest {
     @Test
     void onChristmasDdayDiscount() {
         when(dateReferee.hasChristmasNotPassed()).thenReturn(true);
-        int dday = 0;
-        Event event = new ChristmasDdayDiscount(dday);
+        int day = 25;
+        Event event = new ChristmasDdayDiscount(day);
         int expectedDiscount = 3_400;
         assertThat(event.calculateDiscount()).isEqualTo(expectedDiscount);
     }
@@ -74,7 +74,7 @@ public class JudgementTest {
         when(dateReferee.hasChristmasNotPassed()).thenReturn(true);
         int dday = 15;
         Event event = new ChristmasDdayDiscount(dday);
-        int expectedDiscount = 1_900;
+        int expectedDiscount = 2_400;
         assertThat(event.calculateDiscount()).isEqualTo(expectedDiscount);
     }
 
@@ -119,8 +119,7 @@ public class JudgementTest {
     @DisplayName("샴페인 증정이 적용되는지 확인 - 총 주문 금액이 기준과 같은 경우")
     @Test
     void giftPromotionAppliedOnThreshold() {
-        int totalAmount = FREE_CHAMPAGNE_THRESHOLD;
-        boolean hasGiftPromotion = judgement.checkTotalAmount(totalAmount);
+        boolean hasGiftPromotion = judgement.checkTotalAmount(FREE_CHAMPAGNE_THRESHOLD);
         assertTrue(hasGiftPromotion);
     }
 
