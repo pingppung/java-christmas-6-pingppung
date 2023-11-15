@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.constants.ConstantsMessage;
+import christmas.domain.ResultGenerator;
 import christmas.domain.event.enums.EventDate;
 import christmas.dto.EventResultDTO;
 import christmas.services.order.AmountCalculator;
@@ -42,8 +43,7 @@ public class ReservationController {
         EventResultDTO eventResultDTO = eventController.start(reservationDay, reservedMenu, totalOrderAmount);
         ReservationVO reservationVO = createReservationVO(reservationDay, reservedMenu, totalOrderAmount,
                 eventResultDTO);
-
-        outputView.printReservation(reservationVO);
+        generateReservationResult(reservationVO);
     }
 
     private int getReservationDay() {
@@ -71,7 +71,11 @@ public class ReservationController {
                                               EventResultDTO eventResultDTO) {
         int paymentAmount = calculatePaymentAmount(totalOrderAmount, eventResultDTO.getTotalDiscountAmount(),
                 eventResultDTO.getGiftEventDiscount());
-        return ReservationVO.create(reservationDay, reservedMenu, eventResultDTO.getEligibleEvents(), totalOrderAmount,
-                eventResultDTO.getTotalDiscountAmount(), paymentAmount);
+        return ReservationVO.create(reservationDay, reservedMenu, eventResultDTO, totalOrderAmount, paymentAmount);
+    }
+
+    private void generateReservationResult(ReservationVO reservationVO) {
+        ResultGenerator resultGenerator = new ResultGenerator(reservationVO);
+        outputView.displayReservationResult(resultGenerator.generateResult());
     }
 }
