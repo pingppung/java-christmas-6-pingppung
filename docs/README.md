@@ -42,7 +42,7 @@
         - ✅ 크리스마스 여부 확인 - `DateReferee#hasChristmasNotPassed`
             - ✅ 크리스마스 디데이 계산 - `DateCalculator#countDday`
     - 할인받을 수 있는 혜택 **(12월 1일 ~ 12월 31일)** - `Judgement`
-        - 총 주문 금액이 10,000원 이상부터 적용
+        - ✅ 총 주문 금액이 10,000원 이상부터 적용 - `Judgement#applyEvent`
         - ✅ 크리스마스 디데이 할인 - `Judgement#hasChristmasDdayDiscount`
             - `(12월 1일 ~ 12월 25일)` : 12월 1일부터 1,000원 할인으로 시작하여 날마다 + 100원 할인 혜택
         - ✅ 평일 or 주말 할인 - `Judgement#hasWeekendOrWeekdayDiscount`

@@ -1,13 +1,14 @@
 package christmas.utils;
 
+import christmas.services.order.OrderValidator;
 import christmas.vo.OrderMenuVO;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {
-    private final String FOOD_SEPARATOR = ",";
-    private final String MENU_ITEM_SEPARATOR = "-";
+    private static final String FOOD_SEPARATOR = ",";
+    private static final String MENU_ITEM_SEPARATOR = "-";
     private static final String MONEY_CURRENCY_PATTERN = "###,###";
     private final List<OrderMenuVO> orderDetails;
     private final OrderValidator orderValidator;

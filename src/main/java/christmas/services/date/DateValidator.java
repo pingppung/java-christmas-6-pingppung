@@ -1,4 +1,4 @@
-package christmas.utils;
+package christmas.services.date;
 
 public class DateValidator {
     private static final int MIN_DAY = 1;

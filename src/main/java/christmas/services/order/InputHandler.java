@@ -1,4 +1,4 @@
-package christmas.utils;
+package christmas.services.order;
 
 public class InputHandler {
     public InputHandler() {

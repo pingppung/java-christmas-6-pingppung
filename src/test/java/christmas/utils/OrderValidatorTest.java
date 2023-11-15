@@ -2,6 +2,7 @@ package christmas.utils;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import christmas.services.order.OrderValidator;
 import christmas.vo.OrderMenuVO;
 import java.util.ArrayList;
 import java.util.List;
