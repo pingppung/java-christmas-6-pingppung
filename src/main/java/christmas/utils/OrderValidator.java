@@ -14,8 +14,6 @@ public class OrderValidator {
     private static final String NONE_CATEGORY = "None";
     private static final String BEVERAGE_CATEGORY = "Beverage";
     private static final String INVALID_ORDER_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
-    private static final String ORDER_LIMIT_EXCEEDED_MESSAGE = "[ERROR] 주문은 최대 20개까지 가능합니다. 다시 입력해 주세요.";
-
     private final Menu menu;
 
     public OrderValidator() {
@@ -26,7 +24,7 @@ public class OrderValidator {
         for (OrderMenuVO orderMenu : orderMenuList) {
             String food = orderMenu.menuName();
             if (menu.getMenuCategory(food).equals(NONE_CATEGORY)) {
-                throw new IllegalArgumentException("존재 x");
+                throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
             }
         }
     }
@@ -35,7 +33,7 @@ public class OrderValidator {
         for (OrderMenuVO orderMenu : orderMenuList) {
             int quantity = orderMenu.quantity();
             if (quantity < MIN_ORDER_QUANTITY) {
-                throw new IllegalArgumentException("메뉴의 개수는 1 이상의 숫자");
+                throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
             }
         }
     }
@@ -44,13 +42,13 @@ public class OrderValidator {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("개수에 문자입력");
+            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }
 
     public void validateMenuFormat(String food) {
         if (!food.matches(PATTERN)) {
-            throw new IllegalArgumentException("메뉴 입력 형식 문제");
+            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }
 
@@ -58,7 +56,7 @@ public class OrderValidator {
         Set<OrderMenuVO> uniqueMenuSet = new HashSet<>();
         for (OrderMenuVO menu : orderedMenu) {
             if (!uniqueMenuSet.add(menu)) {
-                throw new IllegalArgumentException("중복 메뉴");
+                throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
             }
         }
     }
@@ -69,7 +67,7 @@ public class OrderValidator {
                 .anyMatch(menu -> !isBeverage(menu.menuName()));
 
         if (!containsFood) {
-            throw new IllegalArgumentException("음료수만 안됨");
+            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }
 
@@ -80,7 +78,7 @@ public class OrderValidator {
 
     public void validateNonZeroOrderQuantity(List<OrderMenuVO> orderedMenu) {
         if (orderedMenu.size() == ZERO_ORDER_QUANTITY) {
-            throw new IllegalArgumentException("아무것도 주문 안함");
+            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }
 
@@ -89,7 +87,7 @@ public class OrderValidator {
                 .mapToInt(OrderMenuVO::quantity)
                 .sum();
         if (totalQuantity > MAX_ORDER_TOTAL_QUANTITY) {
-            throw new IllegalArgumentException("최대 주문 20개 넘음");
+            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
         }
     }
 }
