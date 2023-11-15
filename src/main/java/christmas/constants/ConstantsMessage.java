@@ -11,7 +11,7 @@ public enum ConstantsMessage {
     BENEFIT_LIST("<혜택 내역>"),
     TOTAL_BENEFIT_AMOUNT("<총혜택 금액>"),
     FINAL_PAYMENT_AMOUNT("<할인 후 예상 결제 금액>"),
-    EVENT_BADGE("<12월 이벤트 배지>");
+    EVENT_BADGE("<%d월 이벤트 배지>");
 
     public final String message;
 
