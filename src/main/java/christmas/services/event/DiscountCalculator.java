@@ -26,7 +26,9 @@ public class DiscountCalculator {
         for (EventType type : events) {
             Event event = type.createEvent(params);
             int discount = event.calculateDiscount();
-            addEligibleEvent(new EligibleEventVO(event.getEventType(), discount));
+            if (discount != 0) {
+                addEligibleEvent(new EligibleEventVO(event.getEventType(), discount));
+            }
         }
         return eligibleEvents;
     }
