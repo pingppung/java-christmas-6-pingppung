@@ -22,6 +22,7 @@ public class Parser {
         String[] menus = input.split(FOOD_SEPARATOR);
 
         for (String menu : menus) {
+            menu = menu.trim();
             orderValidator.validateMenuFormat(menu);
 
             String[] parts = menu.split(MENU_ITEM_SEPARATOR);

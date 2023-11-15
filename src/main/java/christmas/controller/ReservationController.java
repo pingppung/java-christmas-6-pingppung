@@ -47,7 +47,7 @@ public class ReservationController {
     }
 
     private int getReservationDay() {
-        String inputDate = inputView.getVisitDate();
+        String inputDate = inputView.getVisitDate().trim();
         int reservationDate = dateValidator.validateDateNonNumeric(inputDate);
         dateValidator.validateDateRange(reservationDate);
         return reservationDate;
