@@ -12,10 +12,9 @@ public class ResultGenerator {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String MONEY_FORMAT = "%s원";
     private static final String ITEM_QUANTITY_FORMAT = "%s %d개";
-    private final Parser parser;
 
     public ResultGenerator() {
-        this.parser = new Parser();
+
     }
 
     public String generateOrderMenuResult(List<OrderMenuVO> orderMenu) {
@@ -68,7 +67,7 @@ public class ResultGenerator {
     }
 
     private String formatMoney(int amount) {
-        return String.format(MONEY_FORMAT, parser.formatMoneyCurrency(amount));
+        return String.format(MONEY_FORMAT, Parser.formatMoneyCurrency(amount));
     }
 
     private String formatMenuDetails(List<OrderMenuVO> orderMenu) {

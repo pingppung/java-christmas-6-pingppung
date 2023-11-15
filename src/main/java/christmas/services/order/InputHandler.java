@@ -4,7 +4,7 @@ public class InputHandler {
     public InputHandler() {
     }
 
-    public <T> T retryInputOnInvalid(InputSupplier<T> input) {
+    public static <T> T retryInputOnInvalid(InputSupplier<T> input) {
         while (true) {
             try {
                 return input.get();
@@ -13,7 +13,7 @@ public class InputHandler {
             }
         }
     }
-    
+
     @FunctionalInterface
     public interface InputSupplier<T> {
         T get() throws IllegalArgumentException;

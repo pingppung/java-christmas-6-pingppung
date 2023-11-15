@@ -17,17 +17,13 @@ import java.util.List;
 public class ReservationController {
     private final OutputView outputView;
     private final InputView inputView;
-    private final InputHandler inputHandler;
-    private final DateValidator dateValidator;
     private final EventController eventController;
     private final AmountCalculator amountCalculator;
 
 
-    public ReservationController() {
-        inputView = new InputView();
-        outputView = new OutputView();
-        inputHandler = new InputHandler();
-        dateValidator = new DateValidator();
+    public ReservationController(InputView inputView, OutputView outputView) {
+        this.inputView = inputView;
+        this.outputView = outputView;
         eventController = new EventController();
         amountCalculator = new AmountCalculator();
     }
@@ -36,8 +32,8 @@ public class ReservationController {
         outputView.printFormattedMessage(
                 String.format(ConstantsMessage.GREETING.message, EventDate.CHRISTMAS_DAY.getMonthValue()));
 
-        int reservationDay = inputHandler.retryInputOnInvalid(this::getReservationDay);
-        List<OrderMenuVO> reservedMenu = inputHandler.retryInputOnInvalid(this::getReservedMenu);
+        int reservationDay = InputHandler.retryInputOnInvalid(this::getReservationDay);
+        List<OrderMenuVO> reservedMenu = InputHandler.retryInputOnInvalid(this::getReservedMenu);
         int totalOrderAmount = calculateTotalOrderAmount(reservedMenu);
 
         EventResultDTO eventResultDTO = eventController.applyEvent(totalOrderAmount, reservationDay, reservedMenu);
@@ -48,8 +44,8 @@ public class ReservationController {
 
     private int getReservationDay() {
         String inputDate = inputView.getVisitDate().trim();
-        int reservationDate = dateValidator.validateDateNonNumeric(inputDate);
-        dateValidator.validateDateRange(reservationDate);
+        int reservationDate = DateValidator.validateDateNonNumeric(inputDate);
+        DateValidator.validateDateRange(reservationDate);
         return reservationDate;
     }
 
