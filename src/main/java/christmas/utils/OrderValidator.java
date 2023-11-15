@@ -14,6 +14,7 @@ public class OrderValidator {
     private static final String NONE_CATEGORY = "None";
     private static final String BEVERAGE_CATEGORY = "Beverage";
     private static final String INVALID_ORDER_MESSAGE = "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.";
+    public static final String MAX_ORDER_LIMIT_EXCEEDED = "[ERROR] 주문은 최대 20개까지 가능합니다. 다시 입력해 주세요.";
     private final Menu menu;
 
     public OrderValidator() {
@@ -87,7 +88,7 @@ public class OrderValidator {
                 .mapToInt(OrderMenuVO::quantity)
                 .sum();
         if (totalQuantity > MAX_ORDER_TOTAL_QUANTITY) {
-            throw new IllegalArgumentException(INVALID_ORDER_MESSAGE);
+            throw new IllegalArgumentException(MAX_ORDER_LIMIT_EXCEEDED);
         }
     }
 }

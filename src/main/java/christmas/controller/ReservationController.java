@@ -1,7 +1,7 @@
 package christmas.controller;
 
 import christmas.constants.ConstantsMessage;
-import christmas.domain.ResultGenerator;
+import christmas.domain.PreviewResult;
 import christmas.domain.event.enums.EventDate;
 import christmas.dto.EventResultDTO;
 import christmas.services.order.AmountCalculator;
@@ -40,7 +40,7 @@ public class ReservationController {
         List<OrderMenuVO> reservedMenu = inputHandler.retryInputOnInvalid(this::getReservedMenu);
         int totalOrderAmount = calculateTotalOrderAmount(reservedMenu);
 
-        EventResultDTO eventResultDTO = eventController.start(reservationDay, reservedMenu, totalOrderAmount);
+        EventResultDTO eventResultDTO = eventController.applyEvent(totalOrderAmount, reservationDay, reservedMenu);
         ReservationVO reservationVO = createReservationVO(reservationDay, reservedMenu, totalOrderAmount,
                 eventResultDTO);
         generateReservationResult(reservationVO);
@@ -75,7 +75,7 @@ public class ReservationController {
     }
 
     private void generateReservationResult(ReservationVO reservationVO) {
-        ResultGenerator resultGenerator = new ResultGenerator(reservationVO);
-        outputView.displayReservationResult(resultGenerator.generateResult());
+        PreviewResult previewResult = new PreviewResult();
+        outputView.displayReservationResult(previewResult.generateResult(reservationVO));
     }
 }
