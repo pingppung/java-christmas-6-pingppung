@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.event.Badge;
 import christmas.domain.event.Judgement;
 import christmas.domain.event.enums.EventType;
 import christmas.dto.EventResultDTO;
@@ -21,7 +22,11 @@ public class EventController {
         List<EligibleEventVO> eligibleEvents = calculateEligibleEventDiscount(reservationDay, reservedMenu, events);
         int totalDiscountAmount = discountCalculator.calculateTotalDiscount();
         int giftEventDiscount = discountCalculator.getGiftPromotionDiscount();
-        return new EventResultDTO(eligibleEvents, totalDiscountAmount, giftEventDiscount);
+
+        Badge badge = new Badge(totalDiscountAmount);
+        String badgeType = badge.getBadgeType();
+
+        return new EventResultDTO(eligibleEvents, totalDiscountAmount, giftEventDiscount, badgeType);
     }
 
     public List<EventType> findEligibleEvents(int reservationDay, int totalAmount) {
