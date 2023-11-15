@@ -12,23 +12,19 @@ public class PreviewResult {
     }
 
     public String generateResult(ReservationVO reservationVO) {
-
-        StringBuilder result = new StringBuilder();
         String previewPrompt = String.format(ConstantsMessage.BENEFIT_PREVIEW.message,
                 EventDate.CHRISTMAS_DAY.getMonthValue(), reservationVO.reservationDay());
-        result.append(previewPrompt).append("\n");
-        result.append(resultGenerator.generateOrderMenuResult(reservationVO.reservedMenu()));
-        result.append(resultGenerator.generateTotalOrderAmountResult(reservationVO.totalOrderAmount()));
 
-        result.append(resultGenerator.generateTGiftMenuResult(reservationVO.eventResultDTO().getGiftEventDiscount()));
-        result.append(resultGenerator.generateDiscountDetails(reservationVO.eventResultDTO().getEligibleEvents()));
-        result.append(
-                resultGenerator.generateTotalDiscountAmount(reservationVO.eventResultDTO().getTotalDiscountAmount()));
-
-        result.append(resultGenerator.generatePaymentAmount(reservationVO.paymentAmount()));
-
-        result.append(resultGenerator.generateEventBadge(reservationVO.eventResultDTO().getEventBadge()));
-
-        return result.toString();
+        return new StringBuilder()
+                .append(previewPrompt).append("\n\n")
+                .append(resultGenerator.generateOrderMenuResult(reservationVO.reservedMenu()))
+                .append(resultGenerator.generateTotalOrderAmountResult(reservationVO.totalOrderAmount()))
+                .append(resultGenerator.generateGiftMenuResult(reservationVO.eventResultDTO().getGiftEventDiscount()))
+                .append(resultGenerator.generateDiscountDetails(reservationVO.eventResultDTO().getEligibleEvents()))
+                .append(resultGenerator.generateTotalDiscountAmount(
+                        reservationVO.eventResultDTO().getTotalDiscountAmount()))
+                .append(resultGenerator.generatePaymentAmount(reservationVO.paymentAmount()))
+                .append(resultGenerator.generateEventBadge(reservationVO.eventResultDTO().getEventBadge()))
+                .toString();
     }
 }

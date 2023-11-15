@@ -19,78 +19,73 @@ public class ResultGenerator {
     }
 
     public String generateOrderMenuResult(List<OrderMenuVO> orderMenu) {
-        StringBuilder result = new StringBuilder();
-        result.append(ConstantsMessage.ORDER_MENU.message).append(LINE_SEPARATOR);
-        for (OrderMenuVO menu : orderMenu) {
-            result.append(menu.toString()).append(LINE_SEPARATOR);
-        }
-        return result.append("\n").toString();
+        return generateMessage(ConstantsMessage.ORDER_MENU.message, formatMenuDetails(orderMenu));
     }
 
     public String generateTotalOrderAmountResult(int total) {
-        StringBuilder result = new StringBuilder();
-        result.append(ConstantsMessage.TOTAL_ORDER_AMOUNT.message).append(LINE_SEPARATOR);
-        String totalOrderAmount = String.format(MONEY_FORMAT, parser.formatMoneyCurrency(total));
-        result.append(totalOrderAmount).append(LINE_SEPARATOR);
-        return result.append("\n").toString();
+        return generateMessage(ConstantsMessage.TOTAL_ORDER_AMOUNT.message,
+                formatMoney(total)) + "\n";
     }
 
-    public String generateTGiftMenuResult(int giftStatus) {
-        StringBuilder result = new StringBuilder();
-        result.append(ConstantsMessage.GIFT_MENU.message).append(LINE_SEPARATOR);
+    public String generateGiftMenuResult(int giftStatus) {
         if (giftStatus == 0) {
-            return result.append("없음").append(LINE_SEPARATOR).toString();
+            return generateMessage(ConstantsMessage.GIFT_MENU.message, "없음\n");
         }
-        String giftMenu = String.format(ITEM_QUANTITY_FORMAT, GiftPromotion.getGiftItem(),
-                GiftPromotion.getGiftCount());
-        result.append(giftMenu).append(LINE_SEPARATOR);
-        return result.append("\n").toString();
+        return generateMessage(ConstantsMessage.GIFT_MENU.message,
+                String.format(ITEM_QUANTITY_FORMAT, GiftPromotion.getGiftItem(), GiftPromotion.getGiftCount())) + "\n";
     }
 
     public String generateDiscountDetails(List<EligibleEventVO> eligibleEvents) {
-        StringBuilder result = new StringBuilder();
-        result.append(ConstantsMessage.BENEFIT_LIST.message).append(LINE_SEPARATOR);
         if (eligibleEvents.isEmpty()) {
-            return result.append("없음").append(LINE_SEPARATOR).toString();
+            return generateMessage(ConstantsMessage.BENEFIT_LIST.message, "없음\n");
         }
-        for (EligibleEventVO event : eligibleEvents) {
-            result.append(event.toString()).append(LINE_SEPARATOR);
-        }
-        return result.append("\n").toString();
+        return generateMessage(ConstantsMessage.BENEFIT_LIST.message, formatEligibleEvents(eligibleEvents));
     }
 
     public String generateTotalDiscountAmount(int totalDiscount) {
-        StringBuilder result = new StringBuilder();
         if (totalDiscount == 0) {
-            return result.append("없음").append(LINE_SEPARATOR).toString();
+            return generateMessage(ConstantsMessage.TOTAL_BENEFIT_AMOUNT.message, "없음\n");
         }
-        result.append(ConstantsMessage.TOTAL_BENEFIT_AMOUNT.message).append(LINE_SEPARATOR);
-        String totalDiscountAmount = String.format(MONEY_FORMAT, parser.formatMoneyCurrency(-totalDiscount));
-        result.append(totalDiscountAmount).append(LINE_SEPARATOR);
-        return result.append("\n").toString();
+        return generateMessage(ConstantsMessage.TOTAL_BENEFIT_AMOUNT.message, formatMoney(-totalDiscount)) + "\n";
     }
 
     public String generatePaymentAmount(int paymentAmount) {
-        StringBuilder result = new StringBuilder();
-        result.append(ConstantsMessage.FINAL_PAYMENT_AMOUNT.message).append(LINE_SEPARATOR);
-        String totalDiscountAmount = String.format(MONEY_FORMAT, parser.formatMoneyCurrency(paymentAmount));
-        result.append(totalDiscountAmount).append(LINE_SEPARATOR);
-        return result.append("\n").toString();
+        return generateMessage(ConstantsMessage.FINAL_PAYMENT_AMOUNT.message,
+                formatMoney(paymentAmount)) + "\n";
     }
 
     public String generateEventBadge(String eventBadge) {
-        StringBuilder result = new StringBuilder();
         String eventBadgePrompt = String.format(ConstantsMessage.EVENT_BADGE.message,
                 EventDate.CHRISTMAS_DAY.getMonthValue());
         if (eventBadge == null) {
-            return result.append("없음").append(LINE_SEPARATOR).toString();
+            return generateMessage(eventBadgePrompt, "없음\n");
         }
-        result.append(eventBadgePrompt).append(LINE_SEPARATOR);
-        result.append(eventBadge).append(LINE_SEPARATOR);
-        return result.append("n").toString();
+        return generateMessage(eventBadgePrompt, eventBadge) + "\n";
     }
 
+    private String generateMessage(String message, String content) {
+        return String.format("%s%s%s\n", message, LINE_SEPARATOR, content);
+    }
 
+    private String formatMoney(int amount) {
+        return String.format(MONEY_FORMAT, parser.formatMoneyCurrency(amount));
+    }
+
+    private String formatMenuDetails(List<OrderMenuVO> orderMenu) {
+        StringBuilder menuDetails = new StringBuilder();
+        for (OrderMenuVO menu : orderMenu) {
+            menuDetails.append(menu.toString()).append(LINE_SEPARATOR);
+        }
+        return menuDetails.toString();
+    }
+
+    private String formatEligibleEvents(List<EligibleEventVO> eligibleEvents) {
+        StringBuilder eventDetails = new StringBuilder();
+        for (EligibleEventVO event : eligibleEvents) {
+            eventDetails.append(event.toString()).append(LINE_SEPARATOR);
+        }
+        return eventDetails.toString();
+    }
 }
 
 
